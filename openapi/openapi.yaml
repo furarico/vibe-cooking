@@ -15,9 +15,38 @@ paths:
   /recipes:
     get:
       summary: レシピ一覧取得
-      description: 全てのレシピ一覧を取得
+      description: フィルター条件を指定してレシピ一覧を取得
+      parameters:
+        - name: q
+          in: query
+          required: false
+          description: テキスト検索（レシピタイトル、説明、材料名、手順で検索）
+          schema:
+            type: string
+          example: パスタ
+        - name: tag
+          in: query
+          required: false
+          description: タグフィルター（カンマ区切りで複数指定可能、全て含むレシピを取得）
+          schema:
+            type: string
+          example: 和食,簡単
+        - name: category
+          in: query
+          required: false
+          description: カテゴリ名でフィルター
+          schema:
+            type: string
+          example: ご飯
+        - name: categoryId
+          in: query
+          required: false
+          description: カテゴリIDでフィルター
+          schema:
+            type: string
+          example: cm123abc456
       responses:
-        '200':
+        "200":
           description: 成功
           content:
             application/json:
@@ -27,7 +56,7 @@ paths:
                   recipes:
                     type: array
                     items:
-                      $ref: '#/components/schemas/Recipe'
+                      $ref: "#/components/schemas/Recipe"
 
   /recipes/{id}:
     get:
@@ -41,14 +70,31 @@ paths:
           schema:
             type: string
       responses:
-        '200':
+        "200":
           description: 成功
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Recipe'
-        '404':
+                $ref: "#/components/schemas/Recipe"
+        "404":
           description: レシピが見つかりません
+
+  /categories:
+    get:
+      summary: カテゴリ一覧取得
+      description: 全てのカテゴリ一覧を取得
+      responses:
+        "200":
+          description: 成功
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  categories:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/Category"
 
 components:
   schemas:
@@ -61,6 +107,8 @@ components:
           type: string
         description:
           type: string
+        category:
+          $ref: "#/components/schemas/Category"
         prepTime:
           type: integer
           description: 準備時間（分）
@@ -73,11 +121,11 @@ components:
         ingredients:
           type: array
           items:
-            $ref: '#/components/schemas/Ingredient'
+            $ref: "#/components/schemas/Ingredient"
         instructions:
           type: array
           items:
-            $ref: '#/components/schemas/Instruction'
+            $ref: "#/components/schemas/Instruction"
         imageUrl:
           type: string
           format: uri
@@ -118,6 +166,9 @@ components:
         step:
           type: integer
           description: 手順番号
+        title:
+          type: string
+          description: 手順のタイトル（例：パスタを茹でる、野菜を炒める）
         description:
           type: string
           description: 手順の説明
@@ -125,9 +176,27 @@ components:
           type: string
           format: uri
           description: 手順の画像URL
+        audioUrl:
+          type: string
+          format: uri
+          description: 手順の音声URL
         estimatedTime:
           type: integer
           description: この手順の推定時間（分）
       required:
         - step
+        - title
         - description
+
+    Category:
+      type: object
+      properties:
+        id:
+          type: string
+          description: カテゴリID
+        name:
+          type: string
+          description: カテゴリ名（例：ご飯、おかず、デザート、汁物）
+      required:
+        - id
+        - name
