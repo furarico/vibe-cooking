@@ -7,23 +7,25 @@ generator client {
 
 datasource db {
   provider          = "postgresql"
-  url               = env("DATABASE_URL")
+  url               = env("MAIN_DATABASE_URL")
   shadowDatabaseUrl = env("SHADOW_DATABASE_URL")
 }
 
 model Recipe {
   id          String   @id @default(cuid())
-  title       String
-  description String?
-  prepTime    Int?     // 準備時間（分）
-  cookTime    Int?     // 調理時間（分）
-  servings    Int?     // 人数分
+  title       String   @default("")
+  description String   @default("")
+  prepTime    Int? // 準備時間（分）
+  cookTime    Int? // 調理時間（分）
+  servings    Int? // 人数分
   imageUrl    String?
   tags        String[] // PostgreSQLの配列型を使用
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 
   // リレーション
+  category     Category?     @relation(fields: [categoryId], references: [id])
+  categoryId   String?
   ingredients  Ingredient[]
   instructions Instruction[]
 
@@ -32,10 +34,10 @@ model Recipe {
 
 model Ingredient {
   id     String  @id @default(cuid())
-  name   String  // 材料名
-  amount Float   // 分量
-  unit   String  // 単位
-  notes  String? // 備考
+  name   String  @default("") // 材料名
+  amount Float   @default(0) // 分量
+  unit   String  @default("") // 単位
+  notes  String? @default("") // 備考
 
   // リレーション
   recipe   Recipe @relation(fields: [recipeId], references: [id], onDelete: Cascade)
@@ -46,14 +48,24 @@ model Ingredient {
 
 model Instruction {
   id            String  @id @default(cuid())
-  step          Int     // 手順番号
-  description   String  // 手順の説明
+  step          Int     @default(0) // 手順番号
+  title         String  @default("") // 手順のタイトル（例：パスタを茹でる、野菜を炒める）
+  description   String  @default("") // 手順の説明
   imageUrl      String? // 手順の画像URL
-  estimatedTime Int?    // この手順の推定時間（分）
+  audioUrl      String? // 手順の音声URL
+  estimatedTime Int? // この手順の推定時間（分）
 
   // リレーション
   recipe   Recipe @relation(fields: [recipeId], references: [id], onDelete: Cascade)
   recipeId String
 
   @@map("instructions")
+}
+
+model Category {
+  id      String   @id @default(cuid())
+  name    String   @default("") // カテゴリ名（例：ご飯、おかず、デザート、汁物）
+  recipes Recipe[] // 1つのカテゴリに複数のレシピが属する
+
+  @@map("categories")
 }
