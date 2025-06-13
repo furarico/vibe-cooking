@@ -1,0 +1,49 @@
+import { S3Client, PutObjectCommand } from '@aws-sdk/client-s3'
+
+const r2Client = new S3Client({
+  region: 'auto',
+  endpoint: process.env.R2_ENDPOINT,
+  credentials: {
+    accessKeyId: process.env.R2_ACCESS_KEY_ID!,
+    secretAccessKey: process.env.R2_SECRET_ACCESS_KEY!,
+  },
+})
+
+export interface UploadOptions {
+  key: string
+  buffer: Buffer
+  contentType: string
+}
+
+export async function uploadToR2(options: UploadOptions): Promise<string> {
+  const { key, buffer, contentType } = options
+  const bucketName = process.env.R2_BUCKET_NAME!
+  const publicUrl = process.env.R2_PUBLIC_URL!
+
+  try {
+    const command = new PutObjectCommand({
+      Bucket: bucketName,
+      Key: key,
+      Body: buffer,
+      ContentType: contentType,
+      CacheControl: 'public, max-age=31536000', // 1年間キャッシュ
+    })
+
+    await r2Client.send(command)
+    
+    // 公開URLを生成
+    const fileUrl = `${publicUrl}/${key}`
+    return fileUrl
+  } catch (error) {
+    console.error('R2アップロードエラー:', error)
+    throw new Error('ファイルのアップロードに失敗しました')
+  }
+}
+
+export async function uploadAudioToR2(audioBuffer: Buffer, fileName: string): Promise<string> {
+  return uploadToR2({
+    key: fileName,
+    buffer: audioBuffer,
+    contentType: 'audio/mpeg',
+  })
+}
