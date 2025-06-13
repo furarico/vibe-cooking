@@ -1,12 +1,12 @@
-import { TextToSpeechClient } from '@google-cloud/text-to-speech'
+import { TextToSpeechClient } from '@google-cloud/text-to-speech';
 
-const client = new TextToSpeechClient()
+const client = new TextToSpeechClient();
 
 export interface TTSOptions {
-  text: string
-  languageCode?: string
-  voiceName?: string
-  audioEncoding?: 'MP3' | 'LINEAR16' | 'OGG_OPUS'
+  text: string;
+  languageCode?: string;
+  voiceName?: string;
+  audioEncoding?: 'MP3' | 'LINEAR16' | 'OGG_OPUS';
 }
 
 export async function generateSpeech(options: TTSOptions): Promise<Buffer> {
@@ -14,8 +14,8 @@ export async function generateSpeech(options: TTSOptions): Promise<Buffer> {
     text,
     languageCode = 'ja-JP',
     voiceName = 'ja-JP-Neural2-B',
-    audioEncoding = 'MP3'
-  } = options
+    audioEncoding = 'MP3',
+  } = options;
 
   const request = {
     input: { text },
@@ -26,24 +26,25 @@ export async function generateSpeech(options: TTSOptions): Promise<Buffer> {
     audioConfig: {
       audioEncoding: audioEncoding as 'MP3' | 'LINEAR16' | 'OGG_OPUS',
     },
-  }
+  };
 
   try {
-    const [response] = await client.synthesizeSpeech(request)
-    
+    const [response] = await client.synthesizeSpeech(request);
+
     if (!response.audioContent) {
-      throw new Error('音声生成に失敗しました')
+      throw new Error('音声生成に失敗しました');
     }
 
-    return Buffer.from(response.audioContent)
+    return Buffer.from(response.audioContent);
   } catch (error) {
-    console.error('Google TTS エラー:', error)
-    throw new Error('音声生成に失敗しました')
+    console.error('Google TTS エラー:', error);
+    throw new Error('音声生成に失敗しました');
   }
 }
 
-export function generateAudioFileName(text: string, recipeId: string, step: number): string {
-  const hash = Buffer.from(text).toString('base64').substring(0, 8)
-  const timestamp = Date.now()
-  return `instructions/${recipeId}/step-${step}-${hash}-${timestamp}.mp3`
+export function generateAudioFileName(
+  recipeId: string,
+  instructionId: string
+): string {
+  return `instructions/${recipeId}/${instructionId}.mp3`;
 }
