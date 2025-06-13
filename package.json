@@ -6,7 +6,10 @@
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "db:generate": "prisma generate",
+    "predev": "pnpm db:generate",
+    "prebuild": "pnpm db:generate"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.1.1",
