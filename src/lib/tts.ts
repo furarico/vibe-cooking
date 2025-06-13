@@ -42,6 +42,6 @@ export async function generateSpeech(options: TTSOptions): Promise<Buffer> {
   }
 }
 
-export function generateAudioFileName(instructionId: string): string {
-  return `${instructionId}.mp3`
+export function generateAudioFileName(recipeId: string, instructionId: string): string {
+  return `instructions/${recipeId}/${instructionId}.mp3`
 }
