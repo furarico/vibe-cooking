@@ -1,9 +1,6 @@
 import { TextToSpeechClient } from '@google-cloud/text-to-speech'
 
-const client = new TextToSpeechClient({
-  projectId: process.env.GOOGLE_CLOUD_PROJECT,
-  keyFilename: process.env.GOOGLE_APPLICATION_CREDENTIALS,
-})
+const client = new TextToSpeechClient()
 
 export interface TTSOptions {
   text: string
