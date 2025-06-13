@@ -83,11 +83,7 @@ export async function POST(request: NextRequest) {
             })
 
             // R2にアップロード
-            const fileName = generateAudioFileName(
-              instruction.description,
-              recipe.id,
-              instruction.step
-            )
+            const fileName = generateAudioFileName(instruction.id)
             const audioUrl = await uploadAudioToR2(audioBuffer, fileName)
 
             // データベースを更新
