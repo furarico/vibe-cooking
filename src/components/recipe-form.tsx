@@ -1,24 +1,31 @@
-'use client'
+'use client';
 
-import { useState } from 'react'
-import { useForm, useFieldArray } from 'react-hook-form'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { Button } from '@/components/ui/button'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { Input } from '@/components/ui/input'
-import { Textarea } from '@/components/ui/textarea'
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
-import { recipeSchema, type RecipeFormData } from '@/lib/validations'
-import { Plus, Trash2 } from 'lucide-react'
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from '@/components/ui/form';
+import { Input } from '@/components/ui/input';
+import { Textarea } from '@/components/ui/textarea';
+import { recipeSchema, type RecipeFormData } from '@/lib/validations';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { Plus, Trash2 } from 'lucide-react';
+import { useState } from 'react';
+import { useFieldArray, useForm } from 'react-hook-form';
 
 interface RecipeFormProps {
-  onSubmit: (data: RecipeFormData) => Promise<void>
-  defaultValues?: Partial<RecipeFormData>
+  onSubmit: (data: RecipeFormData) => Promise<void>;
+  defaultValues?: Partial<RecipeFormData>;
 }
 
 export function RecipeForm({ onSubmit, defaultValues }: RecipeFormProps) {
-  const [isSubmitting, setIsSubmitting] = useState(false)
-  
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
   const form = useForm<RecipeFormData>({
     resolver: zodResolver(recipeSchema),
     defaultValues: {
@@ -30,44 +37,57 @@ export function RecipeForm({ onSubmit, defaultValues }: RecipeFormProps) {
       imageUrl: '',
       tags: [],
       ingredients: [{ name: '', amount: 0, unit: '', notes: '' }],
-      instructions: [{ step: 1, description: '', imageUrl: '', estimatedTime: undefined }],
-      ...defaultValues
-    }
-  })
+      instructions: [
+        { step: 1, description: '', imageUrl: '', estimatedTime: undefined },
+      ],
+      ...defaultValues,
+    },
+  });
 
-  const { fields: ingredientFields, append: appendIngredient, remove: removeIngredient } = useFieldArray({
+  const {
+    fields: ingredientFields,
+    append: appendIngredient,
+    remove: removeIngredient,
+  } = useFieldArray({
     control: form.control,
-    name: 'ingredients'
-  })
+    name: 'ingredients',
+  });
 
-  const { fields: instructionFields, append: appendInstruction, remove: removeInstruction } = useFieldArray({
+  const {
+    fields: instructionFields,
+    append: appendInstruction,
+    remove: removeInstruction,
+  } = useFieldArray({
     control: form.control,
-    name: 'instructions'
-  })
+    name: 'instructions',
+  });
 
   const handleSubmit = async (data: RecipeFormData) => {
-    setIsSubmitting(true)
+    setIsSubmitting(true);
     try {
-      await onSubmit(data)
-      form.reset()
+      await onSubmit(data);
+      form.reset();
     } catch (error) {
-      console.error('レシピの保存に失敗しました:', error)
+      console.error('レシピの保存に失敗しました:', error);
     } finally {
-      setIsSubmitting(false)
+      setIsSubmitting(false);
     }
-  }
+  };
 
   const addTag = (tag: string) => {
-    const currentTags = form.getValues('tags')
+    const currentTags = form.getValues('tags');
     if (tag && !currentTags.includes(tag)) {
-      form.setValue('tags', [...currentTags, tag])
+      form.setValue('tags', [...currentTags, tag]);
     }
-  }
+  };
 
   const removeTag = (tagToRemove: string) => {
-    const currentTags = form.getValues('tags')
-    form.setValue('tags', currentTags.filter(tag => tag !== tagToRemove))
-  }
+    const currentTags = form.getValues('tags');
+    form.setValue(
+      'tags',
+      currentTags.filter(tag => tag !== tagToRemove)
+    );
+  };
 
   return (
     <Card className="w-full max-w-4xl mx-auto">
@@ -76,7 +96,10 @@ export function RecipeForm({ onSubmit, defaultValues }: RecipeFormProps) {
       </CardHeader>
       <CardContent>
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-6">
+          <form
+            onSubmit={form.handleSubmit(handleSubmit)}
+            className="space-y-6"
+          >
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <FormField
                 control={form.control}
@@ -91,7 +114,7 @@ export function RecipeForm({ onSubmit, defaultValues }: RecipeFormProps) {
                   </FormItem>
                 )}
               />
-              
+
               <FormField
                 control={form.control}
                 name="imageUrl"
@@ -99,7 +122,10 @@ export function RecipeForm({ onSubmit, defaultValues }: RecipeFormProps) {
                   <FormItem>
                     <FormLabel>画像URL</FormLabel>
                     <FormControl>
-                      <Input placeholder="https://example.com/image.jpg" {...field} />
+                      <Input
+                        placeholder="https://example.com/image.jpg"
+                        {...field}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -114,7 +140,10 @@ export function RecipeForm({ onSubmit, defaultValues }: RecipeFormProps) {
                 <FormItem>
                   <FormLabel>説明</FormLabel>
                   <FormControl>
-                    <Textarea placeholder="料理の説明を入力してください" {...field} />
+                    <Textarea
+                      placeholder="料理の説明を入力してください"
+                      {...field}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -129,13 +158,21 @@ export function RecipeForm({ onSubmit, defaultValues }: RecipeFormProps) {
                   <FormItem>
                     <FormLabel>準備時間（分）</FormLabel>
                     <FormControl>
-                      <Input type="number" {...field} onChange={e => field.onChange(e.target.value ? Number(e.target.value) : undefined)} />
+                      <Input
+                        type="number"
+                        {...field}
+                        onChange={e =>
+                          field.onChange(
+                            e.target.value ? Number(e.target.value) : undefined
+                          )
+                        }
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
                 )}
               />
-              
+
               <FormField
                 control={form.control}
                 name="cookTime"
@@ -143,13 +180,21 @@ export function RecipeForm({ onSubmit, defaultValues }: RecipeFormProps) {
                   <FormItem>
                     <FormLabel>調理時間（分）</FormLabel>
                     <FormControl>
-                      <Input type="number" {...field} onChange={e => field.onChange(e.target.value ? Number(e.target.value) : undefined)} />
+                      <Input
+                        type="number"
+                        {...field}
+                        onChange={e =>
+                          field.onChange(
+                            e.target.value ? Number(e.target.value) : undefined
+                          )
+                        }
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
                 )}
               />
-              
+
               <FormField
                 control={form.control}
                 name="servings"
@@ -157,7 +202,15 @@ export function RecipeForm({ onSubmit, defaultValues }: RecipeFormProps) {
                   <FormItem>
                     <FormLabel>人数分</FormLabel>
                     <FormControl>
-                      <Input type="number" {...field} onChange={e => field.onChange(e.target.value ? Number(e.target.value) : undefined)} />
+                      <Input
+                        type="number"
+                        {...field}
+                        onChange={e =>
+                          field.onChange(
+                            e.target.value ? Number(e.target.value) : undefined
+                          )
+                        }
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -169,9 +222,16 @@ export function RecipeForm({ onSubmit, defaultValues }: RecipeFormProps) {
               <FormLabel>タグ</FormLabel>
               <div className="flex flex-wrap gap-2 mt-2">
                 {form.watch('tags').map((tag, index) => (
-                  <span key={index} className="bg-blue-100 text-blue-800 px-2 py-1 rounded-md text-sm flex items-center gap-1">
+                  <span
+                    key={index}
+                    className="bg-blue-100 text-blue-800 px-2 py-1 rounded-md text-sm flex items-center gap-1"
+                  >
                     {tag}
-                    <button type="button" onClick={() => removeTag(tag)} className="text-blue-600 hover:text-blue-800">
+                    <button
+                      type="button"
+                      onClick={() => removeTag(tag)}
+                      className="text-blue-600 hover:text-blue-800"
+                    >
                       ×
                     </button>
                   </span>
@@ -180,19 +240,24 @@ export function RecipeForm({ onSubmit, defaultValues }: RecipeFormProps) {
               <div className="flex gap-2 mt-2">
                 <Input
                   placeholder="タグを入力"
-                  onKeyDown={(e) => {
+                  onKeyDown={e => {
                     if (e.key === 'Enter') {
-                      e.preventDefault()
-                      addTag(e.currentTarget.value)
-                      e.currentTarget.value = ''
+                      e.preventDefault();
+                      addTag(e.currentTarget.value);
+                      e.currentTarget.value = '';
                     }
                   }}
                 />
-                <Button type="button" variant="outline" onClick={(e) => {
-                  const input = e.currentTarget.previousElementSibling as HTMLInputElement
-                  addTag(input.value)
-                  input.value = ''
-                }}>
+                <Button
+                  type="button"
+                  variant="outline"
+                  onClick={e => {
+                    const input = e.currentTarget
+                      .previousElementSibling as HTMLInputElement;
+                    addTag(input.value);
+                    input.value = '';
+                  }}
+                >
                   追加
                 </Button>
               </div>
@@ -201,13 +266,28 @@ export function RecipeForm({ onSubmit, defaultValues }: RecipeFormProps) {
             <div>
               <div className="flex items-center justify-between mb-4">
                 <h3 className="text-lg font-semibold">材料</h3>
-                <Button type="button" variant="outline" size="sm" onClick={() => appendIngredient({ name: '', amount: 0, unit: '', notes: '' })}>
+                <Button
+                  type="button"
+                  variant="outline"
+                  size="sm"
+                  onClick={() =>
+                    appendIngredient({
+                      name: '',
+                      amount: 0,
+                      unit: '',
+                      notes: '',
+                    })
+                  }
+                >
                   <Plus className="h-4 w-4 mr-2" />
                   材料を追加
                 </Button>
               </div>
               {ingredientFields.map((field, index) => (
-                <div key={field.id} className="grid grid-cols-1 md:grid-cols-5 gap-2 mb-2">
+                <div
+                  key={field.id}
+                  className="grid grid-cols-1 md:grid-cols-5 gap-2 mb-2"
+                >
                   <FormField
                     control={form.control}
                     name={`ingredients.${index}.name`}
@@ -226,7 +306,15 @@ export function RecipeForm({ onSubmit, defaultValues }: RecipeFormProps) {
                     render={({ field }) => (
                       <FormItem>
                         <FormControl>
-                          <Input type="number" step="0.1" placeholder="分量" {...field} onChange={e => field.onChange(Number(e.target.value))} />
+                          <Input
+                            type="number"
+                            step="0.1"
+                            placeholder="分量"
+                            {...field}
+                            onChange={e =>
+                              field.onChange(Number(e.target.value))
+                            }
+                          />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -256,7 +344,12 @@ export function RecipeForm({ onSubmit, defaultValues }: RecipeFormProps) {
                       </FormItem>
                     )}
                   />
-                  <Button type="button" variant="destructive" size="sm" onClick={() => removeIngredient(index)}>
+                  <Button
+                    type="button"
+                    variant="destructive"
+                    size="sm"
+                    onClick={() => removeIngredient(index)}
+                  >
                     <Trash2 className="h-4 w-4" />
                   </Button>
                 </div>
@@ -266,16 +359,36 @@ export function RecipeForm({ onSubmit, defaultValues }: RecipeFormProps) {
             <div>
               <div className="flex items-center justify-between mb-4">
                 <h3 className="text-lg font-semibold">手順</h3>
-                <Button type="button" variant="outline" size="sm" onClick={() => appendInstruction({ step: instructionFields.length + 1, description: '', imageUrl: '', estimatedTime: undefined })}>
+                <Button
+                  type="button"
+                  variant="outline"
+                  size="sm"
+                  onClick={() =>
+                    appendInstruction({
+                      step: instructionFields.length + 1,
+                      description: '',
+                      imageUrl: '',
+                      estimatedTime: undefined,
+                    })
+                  }
+                >
                   <Plus className="h-4 w-4 mr-2" />
                   手順を追加
                 </Button>
               </div>
               {instructionFields.map((field, index) => (
-                <div key={field.id} className="grid grid-cols-1 gap-2 mb-4 p-4 border rounded-lg">
+                <div
+                  key={field.id}
+                  className="grid grid-cols-1 gap-2 mb-4 p-4 border rounded-lg"
+                >
                   <div className="flex items-center justify-between">
                     <h4 className="font-medium">手順 {index + 1}</h4>
-                    <Button type="button" variant="destructive" size="sm" onClick={() => removeInstruction(index)}>
+                    <Button
+                      type="button"
+                      variant="destructive"
+                      size="sm"
+                      onClick={() => removeInstruction(index)}
+                    >
                       <Trash2 className="h-4 w-4" />
                     </Button>
                   </div>
@@ -285,7 +398,10 @@ export function RecipeForm({ onSubmit, defaultValues }: RecipeFormProps) {
                     render={({ field }) => (
                       <FormItem>
                         <FormControl>
-                          <Textarea placeholder="手順の説明を入力してください" {...field} />
+                          <Textarea
+                            placeholder="手順の説明を入力してください"
+                            {...field}
+                          />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -310,7 +426,18 @@ export function RecipeForm({ onSubmit, defaultValues }: RecipeFormProps) {
                       render={({ field }) => (
                         <FormItem>
                           <FormControl>
-                            <Input type="number" placeholder="推定時間（分）" {...field} onChange={e => field.onChange(e.target.value ? Number(e.target.value) : undefined)} />
+                            <Input
+                              type="number"
+                              placeholder="推定時間（分）"
+                              {...field}
+                              onChange={e =>
+                                field.onChange(
+                                  e.target.value
+                                    ? Number(e.target.value)
+                                    : undefined
+                                )
+                              }
+                            />
                           </FormControl>
                           <FormMessage />
                         </FormItem>
@@ -328,5 +455,5 @@ export function RecipeForm({ onSubmit, defaultValues }: RecipeFormProps) {
         </Form>
       </CardContent>
     </Card>
-  )
+  );
 }
