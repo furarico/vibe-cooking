@@ -42,8 +42,6 @@ export async function generateSpeech(options: TTSOptions): Promise<Buffer> {
   }
 }
 
-export function generateAudioFileName(text: string, recipeId: string, step: number): string {
-  const hash = Buffer.from(text).toString('base64').substring(0, 8)
-  const timestamp = Date.now()
-  return `instructions/${recipeId}/step-${step}-${hash}-${timestamp}.mp3`
+export function generateAudioFileName(instructionId: string): string {
+  return `${instructionId}.mp3`
 }
