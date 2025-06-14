@@ -1,5 +1,16 @@
 import { z } from 'zod';
 
+// カテゴリスキーマ
+export const categorySchema = z.object({
+  name: z
+    .string()
+    .min(1, 'カテゴリ名は必須です')
+    .max(50, 'カテゴリ名は50文字以内で入力してください'),
+});
+
+export type CategoryFormData = z.infer<typeof categorySchema>;
+
+// レシピスキーマ
 export const recipeSchema = z.object({
   title: z.string().min(1, '料理名は必須です'),
   description: z.string().optional(),
