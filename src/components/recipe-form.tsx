@@ -230,7 +230,7 @@ export function RecipeForm({ onSubmit, defaultValues }: RecipeFormProps) {
                     <button
                       type="button"
                       onClick={() => removeTag(tag)}
-                      className="text-blue-600 hover:text-blue-800"
+                      className="text-blue-600 hover:text-blue-800 cursor-pointer"
                     >
                       ×
                     </button>

@@ -45,7 +45,7 @@ export default function Home() {
             <div className="mb-4">
               <button
                 onClick={() => setShowForm(false)}
-                className="text-blue-600 hover:text-blue-800 font-medium"
+                className="text-blue-600 hover:text-blue-800 font-medium cursor-pointer"
               >
                 ← レシピ一覧に戻る
               </button>
