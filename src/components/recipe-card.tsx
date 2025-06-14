@@ -1,5 +1,6 @@
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { DEFAULT_RECIPE_IMAGE_URL } from '@/lib/constants';
 import { ChefHat, Clock, Users } from 'lucide-react';
 
 interface Recipe {
@@ -36,22 +37,21 @@ interface RecipeCardProps {
 
 export function RecipeCard({ recipe, onClick }: RecipeCardProps) {
   const totalTime = (recipe.prepTime || 0) + (recipe.cookTime || 0);
+  const imageUrl = recipe.imageUrl || DEFAULT_RECIPE_IMAGE_URL;
 
   return (
     <Card
       className="hover:shadow-lg transition-shadow cursor-pointer"
       onClick={() => onClick?.(recipe)}
     >
-      {recipe.imageUrl && (
-        <div className="aspect-video overflow-hidden rounded-t-lg">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src={recipe.imageUrl}
-            alt={recipe.title}
-            className="w-full h-full object-cover"
-          />
-        </div>
-      )}
+      <div className="aspect-video overflow-hidden rounded-t-lg">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src={imageUrl}
+          alt={recipe.title}
+          className="w-full h-full object-cover"
+        />
+      </div>
       <CardHeader>
         <CardTitle className="line-clamp-2">{recipe.title}</CardTitle>
         {recipe.description && (

@@ -80,10 +80,12 @@ export async function PUT(
 
     // R2から既存の音声ファイルを削除（非同期で実行、エラーが発生してもレシピ更新は継続）
     if (instructionIdsWithAudio.length > 0) {
-      deleteInstructionAudios(recipeId, instructionIdsWithAudio).catch(error => {
-        console.error('既存音声ファイルの削除エラー:', error);
-        // エラーはログのみで処理を継続
-      });
+      deleteInstructionAudios(recipeId, instructionIdsWithAudio).catch(
+        error => {
+          console.error('既存音声ファイルの削除エラー:', error);
+          // エラーはログのみで処理を継続
+        }
+      );
     }
 
     const recipe = await prisma.recipe.update({
@@ -172,10 +174,12 @@ export async function DELETE(
 
     // R2から音声ファイルを削除（非同期で実行、エラーが発生してもレシピ削除は成功として扱う）
     if (instructionIdsWithAudio.length > 0) {
-      deleteInstructionAudios(recipeId, instructionIdsWithAudio).catch(error => {
-        console.error('削除されたレシピの音声ファイル削除エラー:', error);
-        // エラーはログのみで処理を継続
-      });
+      deleteInstructionAudios(recipeId, instructionIdsWithAudio).catch(
+        error => {
+          console.error('削除されたレシピの音声ファイル削除エラー:', error);
+          // エラーはログのみで処理を継続
+        }
+      );
     }
 
     return NextResponse.json({ message: 'レシピが削除されました' });

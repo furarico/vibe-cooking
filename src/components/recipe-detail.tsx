@@ -3,6 +3,7 @@
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { DEFAULT_RECIPE_IMAGE_URL } from '@/lib/constants';
 import { ArrowLeft, ChefHat, Clock, Edit, Users } from 'lucide-react';
 import { useCallback, useEffect, useState } from 'react';
 
@@ -106,6 +107,7 @@ export function RecipeDetail({ recipeId, onBack, onEdit }: RecipeDetailProps) {
   }
 
   const totalTime = (recipe.prepTime || 0) + (recipe.cookTime || 0);
+  const imageUrl = recipe.imageUrl || DEFAULT_RECIPE_IMAGE_URL;
 
   return (
     <div className="max-w-4xl mx-auto space-y-6">
@@ -127,18 +129,16 @@ export function RecipeDetail({ recipeId, onBack, onEdit }: RecipeDetailProps) {
       <Card>
         <CardHeader>
           <div className="flex flex-col lg:flex-row gap-6">
-            {recipe.imageUrl && (
-              <div className="lg:w-1/3">
-                <div className="aspect-video overflow-hidden rounded-lg">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
-                    src={recipe.imageUrl}
-                    alt={recipe.title}
-                    className="w-full h-full object-cover"
-                  />
-                </div>
+            <div className="lg:w-1/3">
+              <div className="aspect-video overflow-hidden rounded-lg">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={imageUrl}
+                  alt={recipe.title}
+                  className="w-full h-full object-cover"
+                />
               </div>
-            )}
+            </div>
             <div className="flex-1">
               <CardTitle className="text-2xl mb-3">{recipe.title}</CardTitle>
               {recipe.description && (
