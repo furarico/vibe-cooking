@@ -1,4 +1,4 @@
-import { PutObjectCommand, S3Client } from '@aws-sdk/client-s3';
+import { DeleteObjectCommand, PutObjectCommand, S3Client } from '@aws-sdk/client-s3';
 
 const r2Client = new S3Client({
   region: 'auto',
@@ -49,4 +49,41 @@ export async function uploadAudioToR2(
     buffer: audioBuffer,
     contentType: 'audio/mpeg',
   });
+}
+
+export async function deleteFromR2(key: string): Promise<void> {
+  const bucketName = process.env.R2_BUCKET_NAME!;
+
+  try {
+    const command = new DeleteObjectCommand({
+      Bucket: bucketName,
+      Key: key,
+    });
+
+    await r2Client.send(command);
+  } catch (error) {
+    console.error('R2削除エラー:', error);
+    throw new Error('ファイルの削除に失敗しました');
+  }
+}
+
+export async function deleteAudioFromR2(fileName: string): Promise<void> {
+  return deleteFromR2(fileName);
+}
+
+export async function deleteInstructionAudios(
+  recipeId: string,
+  instructionIds: string[]
+): Promise<void> {
+  const deletePromises = instructionIds.map(instructionId => {
+    const fileName = `instructions/${recipeId}/${instructionId}.mp3`;
+    return deleteAudioFromR2(fileName);
+  });
+
+  try {
+    await Promise.all(deletePromises);
+  } catch (error) {
+    console.error('複数音声ファイルの削除エラー:', error);
+    throw new Error('音声ファイルの一括削除に失敗しました');
+  }
 }

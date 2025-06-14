@@ -20,7 +20,13 @@ export const recipeSchema = z.object({
     z.object({
       step: z.number().min(1),
       description: z.string().min(1, '手順の説明は必須です'),
-      imageUrl: z.string().url().optional().or(z.literal('')),
+      imageUrl: z
+        .string()
+        .optional()
+        .refine(
+          val => !val || val === '' || z.string().url().safeParse(val).success,
+          { message: '有効なURLを入力してください' }
+        ),
       estimatedTime: z.number().min(0).optional(),
     })
   ),

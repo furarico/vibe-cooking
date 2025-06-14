@@ -21,9 +21,14 @@ import { useFieldArray, useForm } from 'react-hook-form';
 interface RecipeFormProps {
   onSubmit: (data: RecipeFormData) => Promise<void>;
   defaultValues?: Partial<RecipeFormData>;
+  isEditing?: boolean;
 }
 
-export function RecipeForm({ onSubmit, defaultValues }: RecipeFormProps) {
+export function RecipeForm({
+  onSubmit,
+  defaultValues,
+  isEditing = false,
+}: RecipeFormProps) {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const form = useForm<RecipeFormData>({
@@ -92,7 +97,7 @@ export function RecipeForm({ onSubmit, defaultValues }: RecipeFormProps) {
   return (
     <Card className="w-full max-w-4xl mx-auto">
       <CardHeader>
-        <CardTitle>レシピを追加</CardTitle>
+        <CardTitle>{isEditing ? 'レシピを編集' : 'レシピを追加'}</CardTitle>
       </CardHeader>
       <CardContent>
         <Form {...form}>
@@ -125,6 +130,7 @@ export function RecipeForm({ onSubmit, defaultValues }: RecipeFormProps) {
                       <Input
                         placeholder="https://example.com/image.jpg"
                         {...field}
+                        value={field.value || ''}
                       />
                     </FormControl>
                     <FormMessage />
@@ -143,6 +149,7 @@ export function RecipeForm({ onSubmit, defaultValues }: RecipeFormProps) {
                     <Textarea
                       placeholder="料理の説明を入力してください"
                       {...field}
+                      value={field.value || ''}
                     />
                   </FormControl>
                   <FormMessage />
@@ -338,7 +345,11 @@ export function RecipeForm({ onSubmit, defaultValues }: RecipeFormProps) {
                     render={({ field }) => (
                       <FormItem>
                         <FormControl>
-                          <Input placeholder="備考" {...field} />
+                          <Input
+                            placeholder="備考"
+                            {...field}
+                            value={field.value || ''}
+                          />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -414,7 +425,11 @@ export function RecipeForm({ onSubmit, defaultValues }: RecipeFormProps) {
                       render={({ field }) => (
                         <FormItem>
                           <FormControl>
-                            <Input placeholder="画像URL（任意）" {...field} />
+                            <Input
+                              placeholder="画像URL（任意）"
+                              {...field}
+                              value={field.value || ''}
+                            />
                           </FormControl>
                           <FormMessage />
                         </FormItem>
@@ -449,7 +464,13 @@ export function RecipeForm({ onSubmit, defaultValues }: RecipeFormProps) {
             </div>
 
             <Button type="submit" className="w-full" disabled={isSubmitting}>
-              {isSubmitting ? '保存中...' : 'レシピを保存'}
+              {isSubmitting
+                ? isEditing
+                  ? '更新中...'
+                  : '保存中...'
+                : isEditing
+                  ? 'レシピを更新'
+                  : 'レシピを保存'}
             </Button>
           </form>
         </Form>

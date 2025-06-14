@@ -1,6 +1,5 @@
+import { generateInstructionAudios } from '@/lib/audio-utils';
 import { prisma } from '@/lib/prisma';
-import { uploadAudioToR2 } from '@/lib/r2';
-import { generateAudioFileName, generateSpeech } from '@/lib/tts';
 import { recipeSchema } from '@/lib/validations';
 import { NextRequest, NextResponse } from 'next/server';
 
@@ -73,31 +72,7 @@ export async function POST(request: NextRequest) {
     });
 
     // 音声生成とアップロードを非同期で実行（エラーが発生してもレシピ作成は継続）
-    Promise.all(
-      recipe.instructions.map(async instruction => {
-        try {
-          if (instruction.description.trim()) {
-            // TTS音声生成
-            const audioBuffer = await generateSpeech({
-              text: instruction.description,
-            });
-
-            // R2にアップロード
-            const fileName = generateAudioFileName(recipe.id, instruction.id);
-            const audioUrl = await uploadAudioToR2(audioBuffer, fileName);
-
-            // データベースを更新
-            await prisma.instruction.update({
-              where: { id: instruction.id },
-              data: { audioUrl },
-            });
-          }
-        } catch (audioError) {
-          console.error(`手順${instruction.step}の音声生成エラー:`, audioError);
-          // 音声生成エラーはログのみで処理を継続
-        }
-      })
-    ).catch(error => {
+    generateInstructionAudios(recipe.id, recipe.instructions).catch(error => {
       console.error('音声生成の一括処理エラー:', error);
     });
 
