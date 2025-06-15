@@ -1,5 +1,5 @@
 import { prisma } from '@/lib/prisma';
-import { uploadAudioToR2 } from '@/lib/r2';
+import { deleteFromR2, uploadAudioToR2 } from '@/lib/r2';
 import { generateAudioFileName, generateSpeech } from '@/lib/tts';
 
 export interface InstructionWithAudio {
@@ -36,5 +36,28 @@ export async function generateInstructionAudios(
         // 音声生成エラーはログのみで処理を継続
       }
     })
+  );
+}
+
+export async function deleteInstructionAudio(
+  recipeId: string,
+  instructionId: string
+): Promise<void> {
+  try {
+    const fileName = generateAudioFileName(recipeId, instructionId);
+    await deleteFromR2(fileName);
+  } catch (error) {
+    console.warn(`音声ファイル削除をスキップ: ${recipeId}/${instructionId}`, error);
+  }
+}
+
+export async function deleteAllInstructionAudios(
+  recipeId: string,
+  instructionIds: string[]
+): Promise<void> {
+  await Promise.all(
+    instructionIds.map(instructionId =>
+      deleteInstructionAudio(recipeId, instructionId)
+    )
   );
 }

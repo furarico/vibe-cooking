@@ -80,16 +80,22 @@ export async function deleteInstructionAudios(
   recipeId: string,
   instructionIds: string[]
 ): Promise<void> {
-  const deletePromises = instructionIds.map(instructionId => {
-    const fileName = `instructions/${recipeId}/${instructionId}.mp3`;
-    return deleteAudioFromR2(fileName);
+  const deletePromises = instructionIds.map(async instructionId => {
+    // tts.tsのgenerateAudioFileName関数と同じパスを使用
+    const fileName = `audio/instructions/${recipeId}/${instructionId}.mp3`;
+    try {
+      await deleteAudioFromR2(fileName);
+    } catch (error) {
+      // 個別のファイル削除エラーはログのみ（ファイルが存在しない場合も含む）
+      console.warn(`音声ファイル削除をスキップ: ${fileName}`, error);
+    }
   });
 
   try {
     await Promise.all(deletePromises);
   } catch (error) {
     console.error('複数音声ファイルの削除エラー:', error);
-    throw new Error('音声ファイルの一括削除に失敗しました');
+    // 個別エラーはすでにキャッチ済みなので、ここでは何もしない
   }
 }
 

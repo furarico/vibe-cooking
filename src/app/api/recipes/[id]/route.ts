@@ -1,7 +1,6 @@
-import { generateInstructionAudios } from '@/lib/audio-utils';
+import { deleteAllInstructionAudios, generateInstructionAudios } from '@/lib/audio-utils';
 import { deleteImageFromR2, renameImageToRecipeId } from '@/lib/image-utils';
 import { prisma } from '@/lib/prisma';
-import { deleteInstructionAudios } from '@/lib/r2';
 import { recipeSchema } from '@/lib/validations';
 import { NextRequest, NextResponse } from 'next/server';
 
@@ -68,10 +67,10 @@ export async function PUT(
       },
     });
 
-    // 音声ファイルがある手順のIDを収集
-    const instructionIdsWithAudio = existingInstructions
-      .filter(instruction => instruction.audioUrl)
-      .map(instruction => instruction.id);
+    // 全ての既存手順のIDを収集（音声ファイルの存在に関係なく削除を試行）
+    const allExistingInstructionIds = existingInstructions.map(
+      instruction => instruction.id
+    );
 
     // データベースから既存の材料と手順を削除
     await prisma.ingredient.deleteMany({
@@ -86,9 +85,9 @@ export async function PUT(
       },
     });
 
-    // R2から既存のファイルを削除（非同期で実行、エラーが発生してもレシピ更新は継続）
-    if (instructionIdsWithAudio.length > 0) {
-      deleteInstructionAudios(recipeId, instructionIdsWithAudio).catch(
+    // R2から既存の音声ファイルを削除（非同期で実行、エラーが発生してもレシピ更新は継続）
+    if (allExistingInstructionIds.length > 0) {
+      deleteAllInstructionAudios(recipeId, allExistingInstructionIds).catch(
         error => {
           console.error('既存音声ファイルの削除エラー:', error);
           // エラーはログのみで処理を継続
@@ -218,10 +217,10 @@ export async function DELETE(
       },
     });
 
-    // 音声ファイルがある手順のIDを収集
-    const instructionIdsWithAudio = existingInstructions
-      .filter(instruction => instruction.audioUrl)
-      .map(instruction => instruction.id);
+    // 全ての手順のIDを収集（音声ファイルの存在に関係なく削除を試行）
+    const allInstructionIds = existingInstructions.map(
+      instruction => instruction.id
+    );
 
     // データベースからレシピを削除（カスケード削除により関連する材料と手順も削除される）
     await prisma.recipe.delete({
@@ -230,14 +229,12 @@ export async function DELETE(
       },
     });
 
-    // R2からファイルを削除（非同期で実行、エラーが発生してもレシピ削除は成功として扱う）
-    if (instructionIdsWithAudio.length > 0) {
-      deleteInstructionAudios(recipeId, instructionIdsWithAudio).catch(
-        error => {
-          console.error('削除されたレシピの音声ファイル削除エラー:', error);
-          // エラーはログのみで処理を継続
-        }
-      );
+    // R2から音声ファイルを削除（非同期で実行、エラーが発生してもレシピ削除は成功として扱う）
+    if (allInstructionIds.length > 0) {
+      deleteAllInstructionAudios(recipeId, allInstructionIds).catch(error => {
+        console.error('削除されたレシピの音声ファイル削除エラー:', error);
+        // エラーはログのみで処理を継続
+      });
     }
 
     // レシピ画像を削除
