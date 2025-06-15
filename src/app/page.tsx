@@ -3,7 +3,10 @@
 import { RecipeDetail } from '@/components/recipe-detail';
 import { RecipeForm } from '@/components/recipe-form';
 import { RecipeList } from '@/components/recipe-list';
+import { Button } from '@/components/ui/button';
 import { type RecipeFormData } from '@/lib/validations';
+import { Settings } from 'lucide-react';
+import Link from 'next/link';
 import { useState } from 'react';
 
 interface Recipe {
@@ -112,10 +115,20 @@ export default function Home() {
     <div className="min-h-screen bg-gray-50">
       <div className="container mx-auto px-4 py-8">
         <header className="mb-8">
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">
-            レシピマネージャー
-          </h1>
-          <p className="text-gray-600">お気に入りのレシピを管理しましょう</p>
+          <div className="flex items-center justify-between">
+            <div>
+              <h1 className="text-3xl font-bold text-gray-900 mb-2">
+                レシピマネージャー
+              </h1>
+              <p className="text-gray-600">お気に入りのレシピを管理しましょう</p>
+            </div>
+            <Link href="/categories">
+              <Button variant="outline" className="flex items-center gap-2">
+                <Settings className="h-4 w-4" />
+                カテゴリ管理
+              </Button>
+            </Link>
+          </div>
         </header>
 
         {selectedRecipeId ? (
