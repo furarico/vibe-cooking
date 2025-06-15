@@ -1,4 +1,7 @@
-import { deleteAllInstructionAudios, generateInstructionAudios } from '@/lib/audio-utils';
+import {
+  deleteAllInstructionAudios,
+  generateInstructionAudios,
+} from '@/lib/audio-utils';
 import { deleteImageFromR2, renameImageToRecipeId } from '@/lib/image-utils';
 import { prisma } from '@/lib/prisma';
 import { recipeSchema } from '@/lib/validations';

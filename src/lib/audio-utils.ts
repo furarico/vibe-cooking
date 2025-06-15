@@ -47,7 +47,10 @@ export async function deleteInstructionAudio(
     const fileName = generateAudioFileName(recipeId, instructionId);
     await deleteFromR2(fileName);
   } catch (error) {
-    console.warn(`音声ファイル削除をスキップ: ${recipeId}/${instructionId}`, error);
+    console.warn(
+      `音声ファイル削除をスキップ: ${recipeId}/${instructionId}`,
+      error
+    );
   }
 }
 
