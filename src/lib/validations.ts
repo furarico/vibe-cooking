@@ -19,6 +19,7 @@ export const recipeSchema = z.object({
   servings: z.number().min(1).optional(),
   imageUrl: z.string().url().optional().or(z.literal('')),
   tags: z.array(z.string()),
+  categoryId: z.string().optional().nullable(),
   ingredients: z.array(
     z.object({
       name: z.string().min(1, '材料名は必須です'),

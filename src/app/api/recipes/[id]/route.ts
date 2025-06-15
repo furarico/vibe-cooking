@@ -23,6 +23,7 @@ export async function GET(
             step: 'asc',
           },
         },
+        category: true,
       },
     });
 
@@ -137,6 +138,7 @@ export async function PUT(
         servings: validatedData.servings,
         imageUrl: validatedData.imageUrl,
         tags: validatedData.tags,
+        categoryId: validatedData.categoryId,
         ingredients: {
           create: validatedData.ingredients.map(ingredient => ({
             name: ingredient.name,
@@ -161,6 +163,7 @@ export async function PUT(
             step: 'asc',
           },
         },
+        category: true,
       },
     });
 

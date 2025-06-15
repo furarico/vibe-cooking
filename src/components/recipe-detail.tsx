@@ -16,6 +16,11 @@ interface Recipe {
   servings?: number;
   imageUrl?: string;
   tags: string[];
+  categoryId?: string;
+  category?: {
+    id: string;
+    name: string;
+  };
   createdAt: Date;
   updatedAt: Date;
   ingredients: Array<{
@@ -203,15 +208,25 @@ export function RecipeDetail({
                 </div>
               </div>
 
-              {recipe.tags.length > 0 && (
-                <div className="flex flex-wrap gap-2">
-                  {recipe.tags.map((tag, index) => (
-                    <Badge key={index} variant="secondary">
-                      {tag}
-                    </Badge>
-                  ))}
-                </div>
-              )}
+              <div className="space-y-3">
+                {recipe.category && (
+                  <div className="flex items-center gap-2">
+                    <span className="text-sm text-muted-foreground">
+                      カテゴリ:
+                    </span>
+                    <Badge variant="outline">{recipe.category.name}</Badge>
+                  </div>
+                )}
+                {recipe.tags.length > 0 && (
+                  <div className="flex flex-wrap gap-2">
+                    {recipe.tags.map((tag, index) => (
+                      <Badge key={index} variant="secondary">
+                        {tag}
+                      </Badge>
+                    ))}
+                  </div>
+                )}
+              </div>
             </div>
           </div>
         </CardHeader>

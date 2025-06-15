@@ -14,6 +14,7 @@ export async function GET() {
             step: 'asc',
           },
         },
+        category: true,
       },
       orderBy: {
         createdAt: 'desc',
@@ -45,6 +46,7 @@ export async function POST(request: NextRequest) {
         servings: validatedData.servings,
         imageUrl: validatedData.imageUrl,
         tags: validatedData.tags,
+        categoryId: validatedData.categoryId,
         ingredients: {
           create: validatedData.ingredients.map(ingredient => ({
             name: ingredient.name,
@@ -69,6 +71,7 @@ export async function POST(request: NextRequest) {
             step: 'asc',
           },
         },
+        category: true,
       },
     });
 

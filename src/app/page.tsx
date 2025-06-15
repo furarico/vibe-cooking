@@ -120,7 +120,9 @@ export default function Home() {
               <h1 className="text-3xl font-bold text-gray-900 mb-2">
                 レシピマネージャー
               </h1>
-              <p className="text-gray-600">お気に入りのレシピを管理しましょう</p>
+              <p className="text-gray-600">
+                お気に入りのレシピを管理しましょう
+              </p>
             </div>
             <Link href="/categories">
               <Button variant="outline" className="flex items-center gap-2">

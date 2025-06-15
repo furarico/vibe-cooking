@@ -12,12 +12,24 @@ import {
 } from '@/components/ui/form';
 import { ImageUpload } from '@/components/ui/image-upload';
 import { Input } from '@/components/ui/input';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
 import { Textarea } from '@/components/ui/textarea';
 import { recipeSchema, type RecipeFormData } from '@/lib/validations';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Plus, Trash2 } from 'lucide-react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useFieldArray, useForm } from 'react-hook-form';
+
+interface Category {
+  id: string;
+  name: string;
+}
 
 interface RecipeFormProps {
   onSubmit: (data: RecipeFormData) => Promise<void>;
@@ -31,6 +43,7 @@ export function RecipeForm({
   isEditing = false,
 }: RecipeFormProps) {
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [categories, setCategories] = useState<Category[]>([]);
 
   const form = useForm<RecipeFormData>({
     resolver: zodResolver(recipeSchema),
@@ -42,6 +55,7 @@ export function RecipeForm({
       servings: undefined,
       imageUrl: '',
       tags: [],
+      categoryId: null,
       ingredients: [{ name: '', amount: 0, unit: '', notes: '' }],
       instructions: [
         { step: 1, description: '', imageUrl: '', estimatedTime: undefined },
@@ -49,6 +63,24 @@ export function RecipeForm({
       ...defaultValues,
     },
   });
+
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const response = await fetch('/api/categories');
+        if (response.ok) {
+          const data = await response.json();
+          // APIレスポンスの構造に合わせて修正
+          setCategories(Array.isArray(data.categories) ? data.categories : []);
+        }
+      } catch (error) {
+        console.error('カテゴリの取得に失敗しました:', error);
+        setCategories([]); // エラー時は空配列を設定
+      }
+    };
+
+    fetchCategories();
+  }, []);
 
   const {
     fields: ingredientFields,
@@ -148,6 +180,36 @@ export function RecipeForm({
                       value={field.value || ''}
                     />
                   </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name="categoryId"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>カテゴリ</FormLabel>
+                  <Select
+                    onValueChange={field.onChange}
+                    value={field.value || ''}
+                  >
+                    <FormControl>
+                      <SelectTrigger>
+                        <SelectValue placeholder="カテゴリを選択してください" />
+                      </SelectTrigger>
+                    </FormControl>
+                    <SelectContent>
+                      <SelectItem value="none">カテゴリなし</SelectItem>
+                      {Array.isArray(categories) &&
+                        categories.map(category => (
+                          <SelectItem key={category.id} value={category.id}>
+                            {category.name}
+                          </SelectItem>
+                        ))}
+                    </SelectContent>
+                  </Select>
                   <FormMessage />
                 </FormItem>
               )}
