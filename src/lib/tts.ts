@@ -46,5 +46,5 @@ export function generateAudioFileName(
   recipeId: string,
   instructionId: string
 ): string {
-  return `instructions/${recipeId}/${instructionId}.mp3`;
+  return `audio/instructions/${recipeId}/${instructionId}.mp3`;
 }

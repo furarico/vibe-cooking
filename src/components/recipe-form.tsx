@@ -10,6 +10,7 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/ui/form';
+import { ImageUpload } from '@/components/ui/image-upload';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { recipeSchema, type RecipeFormData } from '@/lib/validations';
@@ -124,17 +125,12 @@ export function RecipeForm({
                 control={form.control}
                 name="imageUrl"
                 render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>画像URL</FormLabel>
-                    <FormControl>
-                      <Input
-                        placeholder="https://example.com/image.jpg"
-                        {...field}
-                        value={field.value || ''}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
+                  <ImageUpload
+                    value={field.value}
+                    onChange={field.onChange}
+                    label="レシピ画像"
+                    placeholder="https://example.com/image.jpg"
+                  />
                 )}
               />
             </div>
@@ -423,16 +419,13 @@ export function RecipeForm({
                       control={form.control}
                       name={`instructions.${index}.imageUrl`}
                       render={({ field }) => (
-                        <FormItem>
-                          <FormControl>
-                            <Input
-                              placeholder="画像URL（任意）"
-                              {...field}
-                              value={field.value || ''}
-                            />
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
+                        <ImageUpload
+                          value={field.value}
+                          onChange={field.onChange}
+                          label="手順画像"
+                          placeholder="画像URL（任意）"
+                          required={false}
+                        />
                       )}
                     />
                     <FormField

@@ -83,6 +83,25 @@ export default function Home() {
     setShowForm(true);
   };
 
+  const handleDeleteRecipe = async (recipeId: string) => {
+    try {
+      const response = await fetch(`/api/recipes/${recipeId}`, {
+        method: 'DELETE',
+      });
+
+      if (!response.ok) {
+        throw new Error('レシピの削除に失敗しました');
+      }
+
+      // 削除成功後、リストに戻る
+      setSelectedRecipeId(null);
+      window.location.reload();
+    } catch (error) {
+      console.error('レシピの削除エラー:', error);
+      throw error;
+    }
+  };
+
   const handleBackToList = () => {
     setSelectedRecipeId(null);
     setShowForm(false);
@@ -104,6 +123,7 @@ export default function Home() {
             recipeId={selectedRecipeId}
             onBack={handleBackToList}
             onEdit={handleEditRecipe}
+            onDelete={handleDeleteRecipe}
           />
         ) : showForm ? (
           <div>

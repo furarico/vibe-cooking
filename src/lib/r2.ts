@@ -1,4 +1,5 @@
 import {
+  CopyObjectCommand,
   DeleteObjectCommand,
   PutObjectCommand,
   S3Client,
@@ -89,5 +90,29 @@ export async function deleteInstructionAudios(
   } catch (error) {
     console.error('複数音声ファイルの削除エラー:', error);
     throw new Error('音声ファイルの一括削除に失敗しました');
+  }
+}
+
+export async function copyFileInR2(
+  sourceKey: string,
+  destKey: string
+): Promise<void> {
+  const bucketName = process.env.R2_BUCKET_NAME!;
+
+  try {
+    // S3互換のCopyObjectを使用
+    const command = new CopyObjectCommand({
+      Bucket: bucketName,
+      CopySource: `${bucketName}/${sourceKey}`,
+      Key: destKey,
+      CacheControl: 'public, max-age=31536000', // 1年間キャッシュ
+    });
+
+    await r2Client.send(command);
+  } catch (error) {
+    console.error('R2ファイルコピーエラー:', error);
+    throw new Error(
+      `ファイルのコピーに失敗しました: ${sourceKey} -> ${destKey}`
+    );
   }
 }

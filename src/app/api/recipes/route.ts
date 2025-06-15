@@ -1,4 +1,5 @@
 import { generateInstructionAudios } from '@/lib/audio-utils';
+import { renameImageToRecipeId } from '@/lib/image-utils';
 import { prisma } from '@/lib/prisma';
 import { recipeSchema } from '@/lib/validations';
 import { NextRequest, NextResponse } from 'next/server';
@@ -70,6 +71,23 @@ export async function POST(request: NextRequest) {
         },
       },
     });
+
+    // 画像ファイル名をレシピIDに変更（非同期で実行）
+    if (recipe.imageUrl) {
+      renameImageToRecipeId(recipe.imageUrl, recipe.id)
+        .then(async newImageUrl => {
+          if (newImageUrl !== recipe.imageUrl) {
+            await prisma.recipe.update({
+              where: { id: recipe.id },
+              data: { imageUrl: newImageUrl },
+            });
+            console.log(`レシピ画像のファイル名を変更しました: ${recipe.id}`);
+          }
+        })
+        .catch(error => {
+          console.error('画像ファイル名変更エラー:', error);
+        });
+    }
 
     // 音声生成とアップロードを非同期で実行（エラーが発生してもレシピ作成は継続）
     generateInstructionAudios(recipe.id, recipe.instructions).catch(error => {

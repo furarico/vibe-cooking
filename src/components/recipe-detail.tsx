@@ -4,7 +4,7 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { DEFAULT_RECIPE_IMAGE_URL } from '@/lib/constants';
-import { ArrowLeft, ChefHat, Clock, Edit, Users } from 'lucide-react';
+import { ArrowLeft, ChefHat, Clock, Edit, Trash2, Users } from 'lucide-react';
 import { useCallback, useEffect, useState } from 'react';
 
 interface Recipe {
@@ -39,12 +39,20 @@ interface RecipeDetailProps {
   recipeId: string;
   onBack: () => void;
   onEdit?: (recipe: Recipe) => void;
+  onDelete?: (recipeId: string) => void;
 }
 
-export function RecipeDetail({ recipeId, onBack, onEdit }: RecipeDetailProps) {
+export function RecipeDetail({
+  recipeId,
+  onBack,
+  onEdit,
+  onDelete,
+}: RecipeDetailProps) {
   const [recipe, setRecipe] = useState<Recipe | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [showDeleteDialog, setShowDeleteDialog] = useState(false);
+  const [isDeleting, setIsDeleting] = useState(false);
 
   const fetchRecipeDetail = useCallback(async () => {
     try {
@@ -73,6 +81,20 @@ export function RecipeDetail({ recipeId, onBack, onEdit }: RecipeDetailProps) {
   useEffect(() => {
     fetchRecipeDetail();
   }, [fetchRecipeDetail]);
+
+  const handleDelete = async () => {
+    if (!onDelete || !recipe) return;
+
+    try {
+      setIsDeleting(true);
+      await onDelete(recipe.id);
+      setShowDeleteDialog(false);
+    } catch (error) {
+      console.error('削除エラー:', error);
+    } finally {
+      setIsDeleting(false);
+    }
+  };
 
   if (isLoading) {
     return (
@@ -117,12 +139,25 @@ export function RecipeDetail({ recipeId, onBack, onEdit }: RecipeDetailProps) {
           <ArrowLeft className="h-4 w-4 mr-2" />
           戻る
         </Button>
-        {onEdit && recipe && (
-          <Button onClick={() => onEdit(recipe)} variant="outline" size="sm">
-            <Edit className="h-4 w-4 mr-2" />
-            編集
-          </Button>
-        )}
+        <div className="flex gap-2">
+          {onEdit && recipe && (
+            <Button onClick={() => onEdit(recipe)} variant="outline" size="sm">
+              <Edit className="h-4 w-4 mr-2" />
+              編集
+            </Button>
+          )}
+          {onDelete && recipe && (
+            <Button
+              onClick={() => setShowDeleteDialog(true)}
+              variant="outline"
+              size="sm"
+              className="text-red-600 hover:text-red-700 hover:bg-red-50"
+            >
+              <Trash2 className="h-4 w-4 mr-2" />
+              削除
+            </Button>
+          )}
+        </div>
       </div>
 
       {/* メイン情報 */}
@@ -258,6 +293,37 @@ export function RecipeDetail({ recipeId, onBack, onEdit }: RecipeDetailProps) {
           </div>
         </CardContent>
       </Card>
+
+      {/* 削除確認ダイアログ */}
+      {showDeleteDialog && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+          <div className="bg-white rounded-lg p-6 max-w-md w-full mx-4">
+            <h3 className="text-lg font-semibold mb-4">
+              レシピを削除しますか？
+            </h3>
+            <p className="text-gray-600 mb-6">
+              「{recipe?.title}
+              」を削除します。この操作は取り消すことができません。
+            </p>
+            <div className="flex justify-end gap-3">
+              <Button
+                onClick={() => setShowDeleteDialog(false)}
+                variant="outline"
+                disabled={isDeleting}
+              >
+                キャンセル
+              </Button>
+              <Button
+                onClick={handleDelete}
+                variant="destructive"
+                disabled={isDeleting}
+              >
+                {isDeleting ? '削除中...' : '削除する'}
+              </Button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
