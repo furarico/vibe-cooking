@@ -46,7 +46,7 @@ paths:
             type: string
           example: cm123abc456
       responses:
-        "200":
+        '200':
           description: 成功
           content:
             application/json:
@@ -56,7 +56,7 @@ paths:
                   recipes:
                     type: array
                     items:
-                      $ref: "#/components/schemas/Recipe"
+                      $ref: '#/components/schemas/Recipe'
 
   /recipes/{id}:
     get:
@@ -70,13 +70,13 @@ paths:
           schema:
             type: string
       responses:
-        "200":
+        '200':
           description: 成功
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Recipe"
-        "404":
+                $ref: '#/components/schemas/Recipe'
+        '404':
           description: レシピが見つかりません
 
   /categories:
@@ -84,7 +84,7 @@ paths:
       summary: カテゴリ一覧取得
       description: 全てのカテゴリ一覧を取得
       responses:
-        "200":
+        '200':
           description: 成功
           content:
             application/json:
@@ -94,7 +94,7 @@ paths:
                   categories:
                     type: array
                     items:
-                      $ref: "#/components/schemas/Category"
+                      $ref: '#/components/schemas/Category'
 
 components:
   schemas:
@@ -108,7 +108,7 @@ components:
         description:
           type: string
         category:
-          $ref: "#/components/schemas/Category"
+          $ref: '#/components/schemas/Category'
         prepTime:
           type: integer
           description: 準備時間（分）
@@ -121,11 +121,11 @@ components:
         ingredients:
           type: array
           items:
-            $ref: "#/components/schemas/Ingredient"
+            $ref: '#/components/schemas/Ingredient'
         instructions:
           type: array
           items:
-            $ref: "#/components/schemas/Instruction"
+            $ref: '#/components/schemas/Instruction'
         imageUrl:
           type: string
           format: uri
@@ -163,6 +163,12 @@ components:
     Instruction:
       type: object
       properties:
+        id:
+          type: string
+          description: 手順ID
+        recipeId:
+          type: string
+          description: レシピID
         step:
           type: integer
           description: 手順番号
@@ -200,3 +206,37 @@ components:
       required:
         - id
         - name
+
+    VibeRecipe:
+      type: object
+      properties:
+        id:
+          type: string
+          description: VibeレシピID
+        recipeIds:
+          type: array
+          items:
+            type: string
+          description: 関連するレシピIDの配列
+        instructions:
+          type: array
+          items:
+            $ref: '#/components/schemas/VibeInstruction'
+          description: Vibe手順の配列
+      required:
+        - id
+        - recipeIds
+        - instructions
+
+    VibeInstruction:
+      type: object
+      properties:
+        instructionId:
+          type: string
+          description: 手順ID
+        step:
+          type: integer
+          description: 手順番号
+      required:
+        - instructionId
+        - step
