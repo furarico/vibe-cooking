@@ -1,6 +1,5 @@
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { DEFAULT_RECIPE_IMAGE_URL } from '@/lib/constants';
 import { ChefHat, Clock, Users } from 'lucide-react';
 
 interface Recipe {
@@ -37,7 +36,8 @@ interface RecipeCardProps {
 
 export function RecipeCard({ recipe, onClick }: RecipeCardProps) {
   const totalTime = (recipe.prepTime || 0) + (recipe.cookTime || 0);
-  const imageUrl = recipe.imageUrl || DEFAULT_RECIPE_IMAGE_URL;
+  const imageUrl =
+    recipe.imageUrl || process.env.NEXT_PUBLIC_DEFAULT_IMAGE_URL || '';
 
   return (
     <Card

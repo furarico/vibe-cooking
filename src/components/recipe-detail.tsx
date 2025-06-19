@@ -3,7 +3,6 @@
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { DEFAULT_RECIPE_IMAGE_URL } from '@/lib/constants';
 import { ArrowLeft, ChefHat, Clock, Edit, Trash2, Users } from 'lucide-react';
 import { useCallback, useEffect, useState } from 'react';
 
@@ -134,7 +133,8 @@ export function RecipeDetail({
   }
 
   const totalTime = (recipe.prepTime || 0) + (recipe.cookTime || 0);
-  const imageUrl = recipe.imageUrl || DEFAULT_RECIPE_IMAGE_URL;
+  const imageUrl =
+    recipe.imageUrl || process.env.NEXT_PUBLIC_DEFAULT_IMAGE_URL || '';
 
   return (
     <div className="max-w-4xl mx-auto space-y-6">
