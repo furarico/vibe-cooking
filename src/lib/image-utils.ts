@@ -1,5 +1,6 @@
 import sharp from 'sharp';
-import { copyFileInR2, deleteFromR2, uploadToR2 } from './r2';
+import cuid from 'cuid';
+import { deleteFromR2, uploadToR2 } from './r2';
 
 export interface ImageProcessingOptions {
   buffer: Buffer;
@@ -77,7 +78,7 @@ export async function processImage(
       .webp({ quality: 85 })
       .toBuffer();
 
-    const filename = `images/recipe_thumbnails/${Date.now()}.webp`;
+    const filename = `images/recipe_thumbnails/${cuid()}.webp`;
 
     return {
       buffer: processedBuffer,
@@ -124,19 +125,18 @@ export async function deleteImageFromR2(imageUrl: string): Promise<void> {
   }
 }
 
-export function generateImageKey(recipeId: string): string {
-  return `images/recipe_thumbnails/${recipeId}.webp`;
+export function generateImageKey(): string {
+  return `images/recipe_thumbnails/${cuid()}.webp`;
 }
 
 export async function uploadRecipeImage(
   buffer: Buffer,
-  originalName: string,
-  recipeId: string
+  originalName: string
 ): Promise<string> {
   const processedImage = await processImage({ buffer, originalName });
 
-  // レシピIDベースのファイル名を使用
-  const filename = generateImageKey(recipeId);
+  // cuidベースのファイル名を使用
+  const filename = generateImageKey();
 
   return uploadToR2({
     key: filename,
@@ -147,43 +147,9 @@ export async function uploadRecipeImage(
 
 export async function renameImageToRecipeId(
   currentImageUrl: string,
-  recipeId: string
+  _recipeId: string // eslint-disable-line @typescript-eslint/no-unused-vars
 ): Promise<string> {
-  if (!currentImageUrl) return currentImageUrl;
-
-  try {
-    // 現在のファイルのキーを抽出
-    const url = new URL(currentImageUrl);
-    const currentKey = url.pathname.substring(1); // 先頭の '/' を除去
-
-    // 新しいキー（レシピIDベース）を生成
-    const newKey = generateImageKey(recipeId);
-
-    // 既に正しいファイル名の場合はそのまま返す
-    if (currentKey === newKey) {
-      return currentImageUrl;
-    }
-
-    // recipe_thumbnailsディレクトリの画像のみ処理（安全性のため）
-    if (!currentKey.startsWith('images/recipe_thumbnails/')) {
-      console.warn(
-        'recipe_thumbnails以外の画像はリネームしません:',
-        currentKey
-      );
-      return currentImageUrl;
-    }
-
-    // ファイルをコピー
-    await copyFileInR2(currentKey, newKey);
-
-    // 古いファイルを削除
-    await deleteFromR2(currentKey);
-
-    // 新しいURLを生成して返す
-    return currentImageUrl.replace(currentKey, newKey);
-  } catch (error) {
-    console.error('画像ファイル名変更エラー:', error);
-    // エラーが発生しても元のURLを返す（画像は使用可能なため）
-    return currentImageUrl;
-  }
+  // cuidベースのファイル名を使用するため、リネーム処理は不要
+  // 元のURLをそのまま返す
+  return currentImageUrl;
 }

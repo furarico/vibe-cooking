@@ -1,4 +1,5 @@
 import { TextToSpeechClient } from '@google-cloud/text-to-speech';
+import cuid from 'cuid';
 
 const client = new TextToSpeechClient();
 
@@ -42,9 +43,6 @@ export async function generateSpeech(options: TTSOptions): Promise<Buffer> {
   }
 }
 
-export function generateAudioFileName(
-  recipeId: string,
-  instructionId: string
-): string {
-  return `audio/instructions/${recipeId}/${instructionId}.mp3`;
+export function generateAudioFileName(): string {
+  return `audio/instructions/${cuid()}.mp3`;
 }

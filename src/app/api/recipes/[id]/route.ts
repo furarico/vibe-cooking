@@ -2,7 +2,7 @@ import {
   deleteAllInstructionAudios,
   generateInstructionAudios,
 } from '@/lib/audio-utils';
-import { deleteImageFromR2, renameImageToRecipeId } from '@/lib/image-utils';
+import { deleteImageFromR2 } from '@/lib/image-utils';
 import { prisma } from '@/lib/prisma';
 import { recipeSchema } from '@/lib/validations';
 import { NextRequest, NextResponse } from 'next/server';
@@ -71,10 +71,10 @@ export async function PUT(
       },
     });
 
-    // 全ての既存手順のIDを収集（音声ファイルの存在に関係なく削除を試行）
-    const allExistingInstructionIds = existingInstructions.map(
-      instruction => instruction.id
-    );
+    // 全ての既存手順の音声URLを収集（削除のため）
+    const allExistingAudioUrls = existingInstructions
+      .map(instruction => instruction.audioUrl)
+      .filter((url): url is string => !!url);
 
     // データベースから既存の材料と手順を削除
     await prisma.ingredient.deleteMany({
@@ -90,13 +90,11 @@ export async function PUT(
     });
 
     // R2から既存の音声ファイルを削除（非同期で実行、エラーが発生してもレシピ更新は継続）
-    if (allExistingInstructionIds.length > 0) {
-      deleteAllInstructionAudios(recipeId, allExistingInstructionIds).catch(
-        error => {
-          console.error('既存音声ファイルの削除エラー:', error);
-          // エラーはログのみで処理を継続
-        }
-      );
+    if (allExistingAudioUrls.length > 0) {
+      deleteAllInstructionAudios(allExistingAudioUrls).catch(error => {
+        console.error('既存音声ファイルの削除エラー:', error);
+        // エラーはログのみで処理を継続
+      });
     }
 
     // 既存のレシピ画像が変更された場合は古い画像を削除
@@ -167,25 +165,10 @@ export async function PUT(
       },
     });
 
-    // 新しい画像が設定された場合、ファイル名をレシピIDに変更（非同期で実行）
-    if (recipe.imageUrl && recipe.imageUrl !== existingRecipe?.imageUrl) {
-      renameImageToRecipeId(recipe.imageUrl, recipe.id)
-        .then(async newImageUrl => {
-          if (newImageUrl !== recipe.imageUrl) {
-            await prisma.recipe.update({
-              where: { id: recipe.id },
-              data: { imageUrl: newImageUrl },
-            });
-            console.log(`レシピ画像のファイル名を変更しました: ${recipe.id}`);
-          }
-        })
-        .catch(error => {
-          console.error('画像ファイル名変更エラー:', error);
-        });
-    }
+    // cuidベースのファイル名を使用するため、リネーム処理は不要
 
     // 音声生成とアップロードを非同期で実行（エラーが発生してもレシピ更新は継続）
-    generateInstructionAudios(recipe.id, recipe.instructions).catch(error => {
+    generateInstructionAudios(recipe.instructions).catch(error => {
       console.error('音声生成の一括処理エラー:', error);
     });
 
@@ -223,10 +206,10 @@ export async function DELETE(
       },
     });
 
-    // 全ての手順のIDを収集（音声ファイルの存在に関係なく削除を試行）
-    const allInstructionIds = existingInstructions.map(
-      instruction => instruction.id
-    );
+    // 全ての手順の音声URLを収集（削除のため）
+    const allAudioUrls = existingInstructions
+      .map(instruction => instruction.audioUrl)
+      .filter((url): url is string => !!url);
 
     // データベースからレシピを削除（カスケード削除により関連する材料と手順も削除される）
     await prisma.recipe.delete({
@@ -236,8 +219,8 @@ export async function DELETE(
     });
 
     // R2から音声ファイルを削除（非同期で実行、エラーが発生してもレシピ削除は成功として扱う）
-    if (allInstructionIds.length > 0) {
-      deleteAllInstructionAudios(recipeId, allInstructionIds).catch(error => {
+    if (allAudioUrls.length > 0) {
+      deleteAllInstructionAudios(allAudioUrls).catch(error => {
         console.error('削除されたレシピの音声ファイル削除エラー:', error);
         // エラーはログのみで処理を継続
       });

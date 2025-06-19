@@ -9,7 +9,6 @@ export interface InstructionWithAudio {
 }
 
 export async function generateInstructionAudios(
-  recipeId: string,
   instructions: InstructionWithAudio[]
 ): Promise<void> {
   await Promise.all(
@@ -22,7 +21,7 @@ export async function generateInstructionAudios(
           });
 
           // R2にアップロード
-          const fileName = generateAudioFileName(recipeId, instruction.id);
+          const fileName = generateAudioFileName();
           const audioUrl = await uploadAudioToR2(audioBuffer, fileName);
 
           // データベースを更新
@@ -39,28 +38,27 @@ export async function generateInstructionAudios(
   );
 }
 
-export async function deleteInstructionAudio(
-  recipeId: string,
-  instructionId: string
-): Promise<void> {
+export async function deleteInstructionAudio(audioUrl: string): Promise<void> {
+  if (!audioUrl) return;
+
   try {
-    const fileName = generateAudioFileName(recipeId, instructionId);
-    await deleteFromR2(fileName);
+    // パブリックURLからキーを抽出
+    const url = new URL(audioUrl);
+    const key = url.pathname.substring(1); // 先頭の '/' を除去
+
+    // audio/instructionsディレクトリの音声のみ削除（安全性のため）
+    if (key.startsWith('audio/instructions/')) {
+      await deleteFromR2(key);
+    }
   } catch (error) {
-    console.warn(
-      `音声ファイル削除をスキップ: ${recipeId}/${instructionId}`,
-      error
-    );
+    console.warn(`音声ファイル削除をスキップ: ${audioUrl}`, error);
   }
 }
 
 export async function deleteAllInstructionAudios(
-  recipeId: string,
-  instructionIds: string[]
+  audioUrls: string[]
 ): Promise<void> {
   await Promise.all(
-    instructionIds.map(instructionId =>
-      deleteInstructionAudio(recipeId, instructionId)
-    )
+    audioUrls.map(audioUrl => deleteInstructionAudio(audioUrl))
   );
 }
