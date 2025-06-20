@@ -136,7 +136,13 @@ export async function PUT(
         servings: validatedData.servings,
         imageUrl: validatedData.imageUrl,
         tags: validatedData.tags,
-        categoryId: validatedData.categoryId,
+        category: validatedData.categoryId
+          ? {
+              connect: { id: validatedData.categoryId },
+            }
+          : {
+              connect: { id: 'cmc4l085q0000o8tu30674wr8' }, // デフォルトカテゴリに接続
+            },
         ingredients: {
           create: validatedData.ingredients.map(ingredient => ({
             name: ingredient.name,

@@ -54,44 +54,77 @@ const categories = [
 // シードレシピデータ
 const seedRecipes: Recipe[] = [
   {
-    title: '鶏ひき肉とレンコンのつくね',
-    description: 'シャキシャキとしたレンコンの食感が楽しいつくね。',
-    prepTime: 15,
+    title: 'とろとろ卵の絶品オムライス',
+    description:
+      'カフェのようなとろとろ卵が楽しめるオムライスのレシピです。バター香るケチャップライスと、ふわふわ半熟卵の組み合わせは、大人も子どもも大満足間違いなし！おうちで本格的なオムライスをぜひ試してみてください。',
+    prepTime: 20,
     cookTime: 15,
-    servings: 2,
-    tags: ['肉料理', '和食', 'つくね'],
+    servings: 1,
+    tags: ['卵料理', '洋食', 'ご飯もの', '定番'],
     ingredients: [
-      { name: '鶏ひき肉', amount: 200, unit: 'g' },
-      { name: 'レンコン', amount: 80, unit: 'g', notes: '粗みじん切り' },
-      {
-        name: '長ねぎ（白い部分）',
-        amount: 0.25,
-        unit: '本',
-        notes: 'みじん切り',
-      },
-      { name: '卵', amount: 0.5, unit: '個' },
-      { name: '片栗粉', amount: 1, unit: '大さじ' },
-      { name: '醤油', amount: 1.5, unit: '大さじ' },
-      { name: 'みりん', amount: 1.5, unit: '大さじ' },
-      { name: '酒', amount: 1, unit: '大さじ' },
+      { name: '温かいご飯', amount: 200, unit: 'g' },
+      { name: '鶏もも肉', amount: 50, unit: 'g', notes: '1cm角に切る' },
+      { name: '玉ねぎ', amount: 0.25, unit: '個', notes: 'みじん切り' },
+      { name: 'マッシュルーム', amount: 2, unit: '個', notes: '薄切り' },
+      { name: 'バター', amount: 10, unit: 'g' },
+      { name: 'ケチャップ', amount: 3, unit: '大さじ' },
+      { name: '塩', amount: 0.25, unit: '小さじ' },
+      { name: 'こしょう', amount: 0.25, unit: '小さじ' },
+      { name: '卵', amount: 3, unit: '個' },
+      { name: '牛乳', amount: 1, unit: '大さじ' },
       { name: 'サラダ油', amount: 1, unit: '大さじ' },
+      {
+        name: 'パセリ（みじん切り）',
+        amount: 1,
+        unit: 'g',
+        notes: '飾り用、お好みで',
+      },
     ],
     instructions: [
       {
         step: 1,
         description:
-          '鶏ひき肉、レンコン、長ねぎ、卵、片栗粉を混ぜてよくこね、成形する。',
-        estimatedTime: 10,
+          '鶏もも肉は1cm角に、玉ねぎはみじん切りに、マッシュルームは薄切りにします。',
       },
       {
         step: 2,
-        description: 'フライパンに油を熱し、つくねを両面焼く。',
-        estimatedTime: 7,
+        description:
+          'フライパンにバター（5g）を熱し、鶏もも肉、玉ねぎ、マッシュルームを炒めます。',
       },
       {
         step: 3,
-        description: '混ぜ合わせた調味料を加えて煮絡める。',
-        estimatedTime: 3,
+        description:
+          '鶏肉に火が通り、玉ねぎがしんなりしたら温かいご飯を加えてほぐします。',
+      },
+      {
+        step: 4,
+        description:
+          'ケチャップ（3大さじ）、塩、こしょうで味を調え、全体が均一になるように炒め合わせます。これでケチャップライスの完成です。一旦皿に移しておきましょう。',
+      },
+      {
+        step: 5,
+        description:
+          'ボウルに卵（3個）を割り入れ、牛乳、塩、こしょうを加えてよく混ぜ合わせます。箸をボウルの底につけたまま、卵液を泡立てないように白身を切るイメージで混ぜるのがポイントです。',
+      },
+      {
+        step: 6,
+        description:
+          '別のフライパン（直径20〜24cmがおすすめ）にサラダ油と残りのバター（5g）を入れ、中火で熱します。バターが溶けてフツフツと泡立ってきたら火を少し弱めます。',
+      },
+      {
+        step: 7,
+        description:
+          '卵液を一気に流し入れ、菜箸やゴムベラで大きく円を描くように混ぜます。卵のフチが固まり始めたら、少し火からおろして余熱で調理を進めると、とろとろの半熟に仕上がります。',
+      },
+      {
+        step: 8,
+        description:
+          'ケチャップライスの上に半熟卵を滑らせるように乗せます。形を整えるように、キッチンペーパーなどを使って軽く包み込むと綺麗に仕上がります。',
+      },
+      {
+        step: 9,
+        description:
+          'お好みで上からケチャップ（分量外）をかけ、パセリのみじん切りを散らしたら完成です。',
       },
     ],
   },
