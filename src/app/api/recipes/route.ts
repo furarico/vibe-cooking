@@ -76,10 +76,13 @@ export async function POST(request: NextRequest) {
 
     // cuidベースのファイル名を使用するため、リネーム処理は不要
 
-    // 音声生成とアップロードを非同期で実行（エラーが発生してもレシピ作成は継続）
-    generateInstructionAudios(recipe.instructions).catch(error => {
+    // 音声生成とアップロードを同期的に実行
+    try {
+      await generateInstructionAudios(recipe.instructions);
+    } catch (error) {
       console.error('音声生成の一括処理エラー:', error);
-    });
+      // 音声生成に失敗してもレシピは作成済みなので、警告として処理
+    }
 
     return NextResponse.json(recipe, { status: 201 });
   } catch (error) {

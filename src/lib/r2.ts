@@ -23,7 +23,11 @@ export interface UploadOptions {
 export async function uploadToR2(options: UploadOptions): Promise<string> {
   const { key, buffer, contentType } = options;
   const bucketName = process.env.R2_BUCKET_NAME!;
-  const publicUrl = process.env.R2_PUBLIC_URL!;
+  const publicUrl = process.env.R2_PUBLIC_URL;
+
+  if (!publicUrl) {
+    throw new Error('R2_PUBLIC_URL環境変数が設定されていません');
+  }
 
   try {
     const command = new PutObjectCommand({
@@ -31,7 +35,7 @@ export async function uploadToR2(options: UploadOptions): Promise<string> {
       Key: key,
       Body: buffer,
       ContentType: contentType,
-      CacheControl: 'public, max-age=31536000', // 1年間キャッシュ
+      // CacheControl: 'public, max-age=31536000', // 1年間キャッシュ
     });
 
     await r2Client.send(command);
