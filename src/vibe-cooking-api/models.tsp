@@ -95,6 +95,15 @@ namespace VibeCookingService {
      * この手順の推定時間（分）
      */
     estimatedTime?: integer;
+
+    /**
+     * タイマーの所要時間
+     *
+     * タイマーセットが必要な手順のみ値を返却
+     *
+     * タイマーセットが必要ない場合はnull
+     */
+    timerDuration?: duration;
   }
 
   model Category {

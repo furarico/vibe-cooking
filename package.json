@@ -6,7 +6,7 @@
     "compile": "tsp compile .",
     "watch": "tsp compile . --watch",
     "docs:build": "redocly build-docs ./tsp-output/schema/VibeCookingService/openapi.yaml -o ./dist/index.html",
-    "docs:preview": "redocly preview-docs ./tsp-output/schema/"
+    "docs:preview": "redocly preview --project-dir=./tsp-output/schema/"
   },
   "dependencies": {
     "@typespec/http": "latest",
