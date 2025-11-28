@@ -6,8 +6,8 @@ generator client {
 }
 
 datasource db {
-  provider          = "postgresql"
-  url               = env("DATABASE_URL")
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
 }
 
 model Recipe {
@@ -53,6 +53,7 @@ model Instruction {
   imageUrl      String? // 手順の画像URL
   audioUrl      String? // 手順の音声URL
   estimatedTime Int? // この手順の推定時間（分）
+  timerDuration Float? // この手順の推定時間（秒）
 
   // リレーション
   recipe   Recipe @relation(fields: [recipeId], references: [id], onDelete: Cascade)

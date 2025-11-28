@@ -64,6 +64,7 @@ export class RecipeService implements IRecipeService {
         imageUrl: instruction.imageUrl || undefined,
         audioUrl: instruction.audioUrl || undefined,
         estimatedTime: instruction.estimatedTime || undefined,
+        timerDuration: instruction.timerDuration ?? undefined,
       })),
       imageUrl: recipe.imageUrl || undefined,
       tags: recipe.tags,
