@@ -97,13 +97,13 @@ namespace VibeCookingService {
     estimatedTime?: integer;
 
     /**
-     * タイマーの所要時間
+     * タイマーの所要時間 (秒)
      *
      * タイマーセットが必要な手順のみ値を返却
      *
      * タイマーセットが必要ない場合はnull
      */
-    timerDuration?: duration;
+    timerDuration?: float64;
   }
 
   model Category {
