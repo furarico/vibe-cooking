@@ -5,33 +5,39 @@
 ## ルール
 
 ### 🔄 Git & バージョン管理
+
 - **必須**: 変更を加えた場合は、都度 Git コミットすること
 - **必須**: Gitコミットする前に、差分にTypeScriptファイル（`.ts`、`.tsx`）が含まれている場合のみ`pnpm format`を実行してエラーを解消すること
 
 ### 📋 ドキュメント管理
+
 - **必須**: プロジェクトに変更を加える際は、CLAUDE.mdの内容に変更が必要かどうかを都度確認すること
 - **必須**: CLAUDE.mdの内容が現在のプロジェクト状態と乖離している場合は、必要に応じて更新すること
 
 ### 🌐 言語・エンコーディング
+
 - **必須**: 全ての出力は日本語で行うこと
 - **必須**: 日本語をファイルに出力する場合は、UTF-8 エンコーディングを使用すること
 - **必須**: ファイルの最終行は改行すること
 
 ### 🧪 テスト駆動開発（TDD）
+
 - **基本方針**: テスト駆動で開発を行うこと
 - **新機能実装時**:
   1. ユニットテストを先に実装すること
   2. テストが失敗することを最初に確認すること
   3. テストが失敗することを確認してから機能を実装すること
   4. 実装後、ユニットテストが成功することを確認すること
-- **禁止事項**: 
+- **禁止事項**:
   - 既存のユニットテストは変更しないこと
   - モック実装をしないこと
 
 ### 📁 ファイル命名規則
+
 - **TypeScript**: `.ts`および`.tsx` のファイル名は、`kebab-case` で命名すること
 
 ### 💻 TypeScript コーディング規則
+
 - **必須**: `any`型の使用を禁止すること
 - **必須**: 型の安全性を保つため、具体的な型定義を使用すること
 - **推奨**: `unknown`、`object`、`Record<string, unknown>`等の適切な型を使用すること
@@ -52,6 +58,7 @@
 - **Storybookビルド**: `pnpm build-storybook` (Storybookの静的ビルド)
 
 ### データベース関連コマンド
+
 - **Prismaクライアント生成**: `pnpm db:generate` (Prismaクライアントコード生成)
 - **Prismaマイグレーション（開発）**: `pnpm db:migrate:dev` (開発環境用マイグレーション作成・適用)
 - **Prismaマイグレーション（本番）**: `pnpm db:migrate:prod` (本番環境用マイグレーション適用)
@@ -61,6 +68,7 @@
 - **データベースリセット（本番）**: `pnpm db:reset:prod` (本番環境用データベース完全リセット)
 
 ### Cloud Run関連
+
 - **Dockerビルド**: `docker build -t vibe-cooking .`
 - **ローカルテスト**: `docker run -p 3000:3000 vibe-cooking`
 - **Google Cloud Runデプロイ**: `pnpm deploy:gcr` (Cloud Runに自動デプロイ)
@@ -74,17 +82,20 @@
 **APIファースト開発**: プロジェクトはOpenAPI仕様（`openapi/openapi.yaml`）を使用して型安全なTypeScriptクライアントコードを生成します。API仕様はフロントエンドとバックエンド間のデータ契約の信頼できる情報源です。
 
 **生成されたAPI型定義**: `openapi/openapi.yaml`への変更後は`pnpm api:generate`を実行してください。これにより以下が生成されます：
+
 - `src/types/api.d.ts`にTypeScript型定義
 - `src/lib/api-client.ts`で手動実装されたHTTPクライアント（DefaultApiクラス）
 - Recipe、Ingredient、Instruction等の型安全なインターフェース
 
 **現在のAPIエンドポイント**:
+
 - `GET /recipes` - レシピ一覧を取得（テキスト検索、タグフィルター、カテゴリフィルター対応）
 - `GET /recipes/{id}` - IDで特定のレシピを取得
 - `GET /categories` - カテゴリ一覧を取得
 - `POST /vibe-recipe` - バイブレシピを作成（音声入力から対話的にレシピを生成）
 
 **主要機能**:
+
 - **バイブレシピ機能**: `/candidates`ページで音声入力から対話的にレシピ候補を生成・選択する機能を提供
 - **調理モード**: `/cooking/{id}`ページでカルーセル形式の調理手順表示とオーディオガイド機能
 - **レシピ検索・表示**: カテゴリ別フィルター、テキスト検索、タグフィルターに対応したレシピ管理機能
@@ -109,28 +120,33 @@ External API / Data Source
 ```
 
 #### 1. UI Layer（UIレイヤー）
+
 - **責務**: ユーザーインターフェースの描画とユーザーインタラクション
 - **技術**: React Components, Next.js Pages, shadcn/ui, Tailwind CSS
 - **場所**: `src/app/`, `src/components/`
 - **特徴**: プレゼンテーション専用、ビジネスロジックは含まない
 
 #### 2. Presenter Layer（プレゼンターレイヤー）
+
 - **責務**: UIの状態管理、イベントハンドリング、サービス層との橋渡し
 - **技術**: React Hooks, Custom Hooks
 - **場所**: `src/client/presenters/`
 - **特徴**: UIとビジネスロジックの分離、テスタブルな状態管理
 
 #### 3. Service Layer（サービスレイヤー）
+
 - **責務**: ビジネスロジック、データ変換、複数リポジトリの組み合わせ
 - **場所**: `src/client/services/`
 - **特徴**: ドメイン固有のロジック、トランザクション管理
 
 #### 4. Repository Layer（リポジトリレイヤー）
+
 - **責務**: データアクセスの抽象化、APIクライアントの管理
 - **場所**: `src/client/repositories/`
 - **特徴**: データソースの詳細を隠蔽、型安全なデータアクセス
 
 #### 5. DI Container（依存性注入コンテナ）
+
 - **責務**: 各レイヤー間の依存関係管理、インスタンス生成
 - **場所**: `src/client/di/`
 - **特徴**: 疎結合、テスタビリティの向上
@@ -144,7 +160,7 @@ External API / Data Source
 ```
 API Routes Layer (Next.js App Router)
     ↓
-Controller Layer  
+Controller Layer
     ↓
 Service Layer
     ↓
@@ -154,41 +170,48 @@ Database Layer (Prisma + PostgreSQL)
 ```
 
 #### 1. API Routes Layer（APIルートレイヤー）
+
 - **責務**: HTTPリクエストのルーティング、基本的な認証・認可
 - **技術**: Next.js App Router
 - **場所**: `src/app/api/` (既存)
 - **特徴**: 薄いレイヤー、Controllerへの移譲のみ
 
 #### 2. Controller Layer（コントローラーレイヤー）
+
 - **責務**: リクエスト・レスポンスの変換、バリデーション、エラーハンドリング
 - **場所**: `src/server/controllers/`
 - **特徴**: HTTPプロトコルに依存、OpenAPI仕様との整合性確保
 
 #### 3. Service Layer（サービスレイヤー）
+
 - **責務**: ビジネスロジック、トランザクション管理、複数リポジトリの協調
 - **場所**: `src/server/services/`
 - **特徴**: ドメイン中心の設計、HTTPに非依存
 
 #### 4. Repository Layer（リポジトリレイヤー）
+
 - **責務**: データアクセスの抽象化、Prismaクライアントの管理
 - **場所**: `src/server/repositories/`
 - **特徴**: データソースの詳細を隠蔽、型安全なデータアクセス
 
 #### 5. Database Layer（データベースレイヤー）
+
 - **責務**: データ永続化、スキーマ管理
 - **技術**: Prisma ORM + PostgreSQL
 - **場所**: `prisma/` ディレクトリ
 
 #### 6. DI Container（依存性注入コンテナ）
+
 - **責務**: サーバーサイド各レイヤー間の依存関係管理、インスタンス生成
 - **場所**: `src/server/di/`
 - **特徴**: 疎結合、テスタビリティの向上
 
 **サーバーサイド推奨ディレクトリ構造**:
+
 ```
 src/server/
 ├── controllers/          # コントローラーレイヤー
-├── services/            # サービスレイヤー  
+├── services/            # サービスレイヤー
 ├── repositories/        # リポジトリレイヤー
 │   ├── interfaces/      # リポジトリインターフェース
 │   └── implementations/ # リポジトリ実装
@@ -239,18 +262,21 @@ prisma/                 # Prismaスキーマとマイグレーション
 2. **Cloud Run本番環境**: Unix Socket + IAM認証を使用
 
 **Cloud SQL IAM認証設定**:
+
 - `src/lib/database.ts`でデータベース接続を管理
 - 環境変数を通じて接続設定を動的に切り替え
 - Unix Socketパス: `/cloudsql/<PROJECT_ID>:<REGION>:<INSTANCE_NAME>`
 - IAM認証用ユーザー名: サービスアカウントメールアドレス
 
 **必要な環境変数** (`.env.development.example`/`.env.production.example`参照):
+
 - `MAIN_DATABASE_URL`: メインデータベース接続URL
 - `SHADOW_DATABASE_URL`: シャドウデータベース接続URL（マイグレーション用）
 - `GOOGLE_CLOUD_PROJECT`: GCPプロジェクトID
 - `GOOGLE_APPLICATION_CREDENTIALS`: サービスアカウントキーファイルのパス
 
 **Firebase関連環境変数**:
+
 - `NEXT_PUBLIC_FIREBASE_API_KEY`: Firebase API Key
 - `NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN`: Firebase認証ドメイン
 - `NEXT_PUBLIC_FIREBASE_PROJECT_ID`: FirebaseプロジェクトID
@@ -261,6 +287,7 @@ prisma/                 # Prismaスキーマとマイグレーション
 - `NEXT_PUBLIC_RECAPTCHA_SITE_KEY`: reCAPTCHA Site Key
 
 **Cloud Runデプロイ要件**:
+
 - Cloud SQL接続設定が必要（`--set-cloudsql-instances`フラグ）
 - サービスアカウントにCloud SQL Client権限が必要
 - Dockerfileでstandalone出力モードを使用
@@ -270,11 +297,13 @@ prisma/                 # Prismaスキーマとマイグレーション
 **shadcn/ui設定**: プロジェクトはモダンなUIコンポーネントライブラリshadcn/uiを使用します：
 
 **設定ファイル**:
+
 - `components.json`: shadcn/ui設定（New Yorkスタイル、TypeScript、Tailwind CSS変数使用）
 - `tailwind.config.ts`: shadcn/ui用のTailwind CSS設定
 - `src/lib/utils.ts`: クラス名結合用ユーティリティ（`cn`関数）
 
 **利用可能なUIコンポーネント**:
+
 - `Button`: 複数バリアント対応ボタン（default, destructive, outline, secondary, ghost, link）
 - `Card`: カードコンポーネント（Header, Title, Description, Content, Footer）
 - `Input`: 入力フィールドコンポーネント
@@ -283,6 +312,7 @@ prisma/                 # Prismaスキーマとマイグレーション
 - `Sonner`: トースト通知コンポーネント
 
 **ビジネスコンポーネント**:
+
 - `RecipeCard`: レシピカード表示コンポーネント
 - `RecipeCardList`: レシピカード一覧表示コンポーネント
 - `RecipeDetailHeader`: レシピ詳細ヘッダーコンポーネント
@@ -297,10 +327,12 @@ prisma/                 # Prismaスキーマとマイグレーション
 - `SelectCount`: 数量選択コンポーネント
 
 **ツールコンポーネント**:
+
 - `Loading`: ローディング表示コンポーネント
 - `NoContent`: コンテンツなし表示コンポーネント
 
 **依存関係**:
+
 - `class-variance-authority`: バリアント管理
 - `clsx`: 条件付きクラス名管理
 - `tailwind-merge`: TailwindCSSクラスのマージ
@@ -317,18 +349,21 @@ prisma/                 # Prismaスキーマとマイグレーション
 **Progressive Web App対応**: プロジェクトはPWA機能を提供し、ユーザーがアプリのようにWebサイトを使用できます：
 
 **設定ファイル**:
+
 - `src/app/manifest.ts`: PWAマニフェストファイル（アプリ名、アイコン、表示モード等を定義）
 - `src/app/service-worker-registration.tsx`: Service Worker登録コンポーネント
 - `public/sw.js`: Service Workerファイル（キャッシュ戦略、オフライン対応等）
 - `public/icon-192x192.png`, `public/icon-512x512.png`: PWAアイコン
 
 **PWA機能**:
+
 - **インストール可能**: ホーム画面への追加が可能
 - **オフライン対応**: Service Workerによるキャッシュとオフライン機能
 - **アプリライクな体験**: スタンドアローンモードでの表示
 - **レスポンシブデザイン**: モバイルファーストのデザイン
 
 **PWAマニフェスト設定**:
+
 - アプリ名: "Vibe Cooking"
 - 表示モード: standalone
 - 背景色: #ffffff
@@ -340,16 +375,19 @@ prisma/                 # Prismaスキーマとマイグレーション
 **コンポーネント開発環境**: Storybookを使用してUIコンポーネントの開発・テスト・ドキュメント化を行います：
 
 **設定ファイル**:
+
 - `.storybook/main.ts`: Storybook設定（Next.jsフレームワーク、addon設定）
 - `.storybook/preview.ts`: プレビュー設定（グローバルCSS、パラメーター設定）
 
 **Storybook設定**:
+
 - フレームワーク: `@storybook/nextjs`
 - ストーリーファイル: `src/**/*.stories.@(js|jsx|mjs|ts|tsx)`
 - アドオン: `@storybook/addon-docs`, `@storybook/addon-onboarding`
 - 静的ファイル: `public/`ディレクトリ
 
 **利用可能なストーリー**:
+
 - 全UIコンポーネント（Button、Card、Input、Carousel、Progress、Sonner）
 - 全ビジネスコンポーネント（Recipe関連、Instruction関連、時間関連コンポーネント）
 - ツールコンポーネント（Loading、NoContent）
@@ -359,10 +397,12 @@ prisma/                 # Prismaスキーマとマイグレーション
 **Firebase初期化**: プロジェクトはFirebase App Checkを含むFirebase SDKを統合します：
 
 **設定ファイル**:
+
 - `src/lib/firebase.ts`: Firebase初期化とApp Check設定
 - `src/app/firebase-init.tsx`: クライアントサイドFirebase初期化コンポーネント
 
 **App Check設定**:
+
 - reCAPTCHA v3 Providerを使用
 - クライアントサイドでのみ初期化
 - 自動トークンリフレッシュ有効
@@ -374,11 +414,13 @@ prisma/                 # Prismaスキーマとマイグレーション
 **AppCheck 設定**: プロジェクトはFirebase AppCheckを使用してAPIエンドポイントを保護します：
 
 **サーバーサイド設定**:
+
 - `src/lib/firebase-admin.ts`: Firebase Admin SDK初期化とAppCheckトークン検証
 - `src/lib/middleware/app-check.ts`: AppCheck検証ミドルウェア
 - 開発環境ではデバッグトークン対応、本番環境では厳密な検証
 
 **AppCheck 検証ミドルウェア**:
+
 - `withAppCheck()`: HOF（高階関数）でAPIハンドラーをラップ
 - Authorizationヘッダーから`Bearer`トークンを取得
 - Firebase Admin SDKでトークンを検証
@@ -387,18 +429,22 @@ prisma/                 # Prismaスキーマとマイグレーション
 **必要な環境変数**:
 
 **本番環境**:
+
 - `GOOGLE_APPLICATION_CREDENTIALS`: サービスアカウントキーファイルのパス（例: `/path/to/service-account-key.json`）
 
 **開発環境（オプション）**:
+
 - `FIREBASE_DEBUG_TOKENS`: デバッグトークンのカンマ区切りリスト（例: `debug-token-1,debug-token-2`）
 - `NEXT_PUBLIC_FIREBASE_PROJECT_ID`: FirebaseプロジェクトID（デバッグ時のフォールバック用）
 
 **開発環境の動作**:
+
 - デバッグトークンが設定されている場合、そのトークンでの検証をスキップ
 - `GOOGLE_APPLICATION_CREDENTIALS`未設定の場合、全てのトークンを有効とする
 - 実際のFirebase AppCheck検証も可能（`GOOGLE_APPLICATION_CREDENTIALS`設定時）
 
 **サービスアカウント設定**:
+
 - Firebase ConsoleでサービスアカウントキーファイルをJSONでダウンロード
 - Cloud Runにファイルをマウントして`GOOGLE_APPLICATION_CREDENTIALS`にパスを設定
 - または、環境変数でJSONコンテンツを直接設定する方法も可能
@@ -421,6 +467,7 @@ prisma/                 # Prismaスキーマとマイグレーション
 ## 主要な依存関係
 
 ### フロントエンド
+
 - **React**: 19.1.0 - UIライブラリ
 - **Next.js**: 15.3.3 - React フレームワーク
 - **TypeScript**: 5.8.3 - 型安全性
@@ -428,24 +475,28 @@ prisma/                 # Prismaスキーマとマイグレーション
 - **shadcn/ui**: コンポーネントライブラリ
 
 ### UI/UX
+
 - **lucide-react**: 0.514.0 - アイコンライブラリ
 - **embla-carousel-react**: 8.6.0 - カルーセルコンポーネント
 - **sonner**: 2.0.5 - トースト通知
 - **next-themes**: 0.4.6 - テーマ管理
 
 ### データベース・API
+
 - **Prisma**: 6.9.0 - ORM
 - **@prisma/client**: 6.9.0 - Prismaクライアント
 - **@google-cloud/cloud-sql-connector**: 1.8.1 - Cloud SQL接続
 - **openapi-fetch**: 0.14.0 - API クライアント
 
 ### AI・認証
+
 - **@google/genai**: 1.5.1 - Gemini API
 - **firebase**: 11.9.1 - Firebase SDK
 - **firebase-admin**: 13.4.0 - Firebase Admin SDK
 - **@firebase/app-check**: 0.10.0 - App Check
 
 ### 開発・テスト
+
 - **Jest**: 30.0.0 - テストフレームワーク
 - **@testing-library/react**: 16.3.0 - React テストユーティリティ
 - **Storybook**: 9.0.8 - コンポーネント開発環境
@@ -453,6 +504,7 @@ prisma/                 # Prismaスキーマとマイグレーション
 - **Prettier**: 3.5.3 - コードフォーマット
 
 ### ツール
+
 - **openapi-typescript**: 7.8.0 - OpenAPI型定義生成
 - **@redocly/cli**: 1.34.3 - API ドキュメント生成
 - **dotenv-cli**: 8.0.0 - 環境変数管理
