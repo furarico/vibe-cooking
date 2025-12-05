@@ -1,41 +1,29 @@
-namespace AppBFFService {
+namespace RecipeService {
   model Recipe {
     id: string;
 
     /**
      * レシピのタイトル
-     *
-     * 単体レシピの場合は必須
      */
-    title?: string;
+    title: string;
 
     /**
      * レシピの説明
-     *
-     * 単体レシピの場合は必須
      */
-    description?: string;
-
-    /**
-     * バイブレシピを構成する単体レシピ
-     *
-     * バイブレシピの場合は必須
-     */
-    recipes?: Recipe[];
+    description: string;
 
     /**
      * 材料
-     *
-     * 単体レシピの場合は必須
      */
-    ingredients?: Ingredient[];
+    ingredients: Ingredient[];
 
+    /**
+     * 手順
+     */
     instructions: Instruction[];
 
     /**
      * レシピの画像URL
-     *
-     * 単体レシピの場合は必須
      */
     imageUrl?: url;
   }

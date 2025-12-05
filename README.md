@@ -1,7 +1,6 @@
 # Vibe Cooking API
 
-- [App BFF API](https://docs.api.vibe-cooking.app/app-bff-api.html)
-- Recipe API
+- [Recipe API](https://docs.api.vibe-cooking.app/recipe-api.html)
 
 ## Deprecated
 
