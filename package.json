@@ -3,9 +3,10 @@
   "version": "1.0.0",
   "packageManager": "pnpm@10.24.0",
   "scripts": {
-    "build": "pnpm compile && pnpm docs:build",
+    "build": "pnpm clean && pnpm compile && pnpm docs:build",
     "compile": "tsp compile .",
     "watch": "tsp compile . --watch",
+    "clean": "rm -rf tsp-output dist",
     "docs:build": "redocly build-docs recipe-api -o ./dist/recipe-api.html && redocly build-docs vibe-cooking-api -o ./dist/vibe-cooking-api.html",
     "docs:preview": "redocly preview --project-dir=./tsp-output/schema/"
   },
