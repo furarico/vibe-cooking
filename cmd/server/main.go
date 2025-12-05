@@ -9,6 +9,7 @@ import (
 	"os"
 
 	"cloud.google.com/go/cloudsqlconn"
+	"github.com/google/uuid"
 	"github.com/jackc/pgx/v5"
 	"github.com/jackc/pgx/v5/stdlib"
 	"github.com/joho/godotenv"
@@ -19,7 +20,22 @@ func main() {
 		log.Printf("Warning: .env file not found: %v", err)
 	}
 
-	connectWithConnectorIAMAuthN()
+	db, err := connectWithConnectorIAMAuthN()
+	if err != nil {
+		log.Fatalf("Failed to connect to database: %v", err)
+	}
+	defer db.Close()
+
+	fmt.Println("Connected to database")
+
+	users, err := getAllUsers(db)
+	if err != nil {
+		log.Fatalf("Failed to get users: %v", err)
+	}
+
+	for _, user := range users {
+		fmt.Printf("User: %+v\n", user)
+	}
 }
 
 func connectWithConnectorIAMAuthN() (*sql.DB, error) {
@@ -68,4 +84,33 @@ func connectWithConnectorIAMAuthN() (*sql.DB, error) {
 		return nil, fmt.Errorf("sql.Open: %w", err)
 	}
 	return dbPool, nil
+}
+
+type User struct {
+	ID   uuid.UUID
+	Name string
+}
+
+func getAllUsers(db *sql.DB) ([]User, error) {
+	rows, err := db.Query("SELECT * FROM users")
+	if err != nil {
+		return nil, fmt.Errorf("failed to query users: %w", err)
+	}
+	defer rows.Close()
+
+	var users []User
+	for rows.Next() {
+		var u User
+		// 実際のカラムに合わせてScanの引数を調整してください
+		if err := rows.Scan(&u.ID, &u.Name); err != nil {
+			return nil, fmt.Errorf("failed to scan User: %w", err)
+		}
+		users = append(users, u)
+	}
+
+	if err := rows.Err(); err != nil {
+		return nil, fmt.Errorf("rows iteration error: %w", err)
+	}
+
+	return users, nil
 }
