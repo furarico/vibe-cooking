@@ -1,18 +1,13 @@
 package main
 
 import (
-	"context"
-	"database/sql"
-	"fmt"
 	"log"
-	"net"
-	"os"
 
-	"cloud.google.com/go/cloudsqlconn"
-	"github.com/google/uuid"
-	"github.com/jackc/pgx/v5"
-	"github.com/jackc/pgx/v5/stdlib"
+	"github.com/furarico/vibe-cooking-recipe-api/internal/database"
+	"github.com/getkin/kin-openapi/openapi3"
+	"github.com/gin-gonic/gin"
 	"github.com/joho/godotenv"
+	middleware "github.com/oapi-codegen/gin-middleware"
 )
 
 func main() {
@@ -20,97 +15,36 @@ func main() {
 		log.Printf("Warning: .env file not found: %v", err)
 	}
 
-	db, err := connectWithConnectorIAMAuthN()
+	db, err := database.ConnectWithConnectorIAMAuthN()
 	if err != nil {
 		log.Fatalf("Failed to connect to database: %v", err)
 	}
-	defer db.Close()
-
-	fmt.Println("Connected to database")
-
-	users, err := getAllUsers(db)
-	if err != nil {
-		log.Fatalf("Failed to get users: %v", err)
-	}
-
-	for _, user := range users {
-		fmt.Printf("User: %+v\n", user)
-	}
-}
-
-func connectWithConnectorIAMAuthN() (*sql.DB, error) {
-	mustGetenv := func(k string) string {
-		v := os.Getenv(k)
-		if v == "" {
-			log.Fatalf("Warning: %s environment variable not set.", k)
+	defer func() {
+		if err := database.Close(db); err != nil {
+			log.Printf("Failed to close database: %v", err)
 		}
-		return v
-	}
-	// Note: Saving credentials in environment variables is convenient, but not
-	// secure - consider a more secure solution such as
-	// Cloud Secret Manager (https://cloud.google.com/secret-manager) to help
-	// keep secrets safe.
-	var (
-		dbUser                 = mustGetenv("DB_IAM_USER")              // e.g. 'service-account-name@project-id.iam'
-		dbName                 = mustGetenv("DB_NAME")                  // e.g. 'my-database'
-		instanceConnectionName = mustGetenv("INSTANCE_CONNECTION_NAME") // e.g. 'project:region:instance'
-	)
+	}()
 
-	// WithLazyRefresh() Option is used to perform refresh
-	// when needed, rather than on a scheduled interval.
-	// This is recommended for serverless environments to
-	// avoid background refreshes from throttling CPU.
-	d, err := cloudsqlconn.NewDialer(
-		context.Background(),
-		cloudsqlconn.WithIAMAuthN(),
-		cloudsqlconn.WithLazyRefresh(),
-	)
+	if err := database.AutoMigrate(db); err != nil {
+		log.Fatalf("Failed to migrate database: %v", err)
+	}
+
+	spec, err := openapi3.NewLoader().LoadFromFile("openapi/openapi.yaml")
 	if err != nil {
-		return nil, fmt.Errorf("cloudsqlconn.NewDialer: %w", err)
-	}
-	var opts []cloudsqlconn.DialOption
-	dsn := fmt.Sprintf("user=%s database=%s", dbUser, dbName)
-	config, err := pgx.ParseConfig(dsn)
-	if err != nil {
-		return nil, err
+		log.Fatalf("Failed to load OpenAPI spec: %v", err)
 	}
 
-	config.DialFunc = func(ctx context.Context, network, instance string) (net.Conn, error) {
-		return d.Dial(ctx, instanceConnectionName, opts...)
-	}
-	dbURI := stdlib.RegisterConnConfig(config)
-	dbPool, err := sql.Open("pgx", dbURI)
-	if err != nil {
-		return nil, fmt.Errorf("sql.Open: %w", err)
-	}
-	return dbPool, nil
-}
+	spec.Servers = nil
 
-type User struct {
-	ID   uuid.UUID
-	Name string
-}
+	router := gin.Default()
 
-func getAllUsers(db *sql.DB) ([]User, error) {
-	rows, err := db.Query("SELECT * FROM users")
-	if err != nil {
-		return nil, fmt.Errorf("failed to query users: %w", err)
+	router.Use(middleware.OapiRequestValidator(spec))
+
+	// TODO: Implement handler
+
+	addr := ":8080"
+	log.Printf("Server starting on %s", addr)
+	if err := router.Run(addr); err != nil {
+		log.Fatal("Failed to start server:", err)
 	}
-	defer rows.Close()
-
-	var users []User
-	for rows.Next() {
-		var u User
-		// 実際のカラムに合わせてScanの引数を調整してください
-		if err := rows.Scan(&u.ID, &u.Name); err != nil {
-			return nil, fmt.Errorf("failed to scan User: %w", err)
-		}
-		users = append(users, u)
-	}
-
-	if err := rows.Err(); err != nil {
-		return nil, fmt.Errorf("rows iteration error: %w", err)
-	}
-
-	return users, nil
 }
