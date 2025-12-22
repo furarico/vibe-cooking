@@ -4,11 +4,14 @@
 package api
 
 import (
+	"context"
+	"encoding/json"
 	"fmt"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
 	"github.com/oapi-codegen/runtime"
+	strictgin "github.com/oapi-codegen/runtime/strictmiddleware/gin"
 )
 
 // Ingredient defines model for Ingredient.
@@ -163,4 +166,69 @@ func RegisterHandlersWithOptions(router gin.IRouter, si ServerInterface, options
 	}
 
 	router.GET(options.BaseURL+"/recipes", wrapper.GetRecipes)
+}
+
+type GetRecipesRequestObject struct {
+	Params GetRecipesParams
+}
+
+type GetRecipesResponseObject interface {
+	VisitGetRecipesResponse(w http.ResponseWriter) error
+}
+
+type GetRecipes200JSONResponse struct {
+	Recipes []Recipe `json:"recipes"`
+}
+
+func (response GetRecipes200JSONResponse) VisitGetRecipesResponse(w http.ResponseWriter) error {
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(200)
+
+	return json.NewEncoder(w).Encode(response)
+}
+
+// StrictServerInterface represents all server handlers.
+type StrictServerInterface interface {
+	// レシピ一覧取得
+	// (GET /recipes)
+	GetRecipes(ctx context.Context, request GetRecipesRequestObject) (GetRecipesResponseObject, error)
+}
+
+type StrictHandlerFunc = strictgin.StrictGinHandlerFunc
+type StrictMiddlewareFunc = strictgin.StrictGinMiddlewareFunc
+
+func NewStrictHandler(ssi StrictServerInterface, middlewares []StrictMiddlewareFunc) ServerInterface {
+	return &strictHandler{ssi: ssi, middlewares: middlewares}
+}
+
+type strictHandler struct {
+	ssi         StrictServerInterface
+	middlewares []StrictMiddlewareFunc
+}
+
+// GetRecipes operation middleware
+func (sh *strictHandler) GetRecipes(ctx *gin.Context, params GetRecipesParams) {
+	var request GetRecipesRequestObject
+
+	request.Params = params
+
+	handler := func(ctx *gin.Context, request interface{}) (interface{}, error) {
+		return sh.ssi.GetRecipes(ctx, request.(GetRecipesRequestObject))
+	}
+	for _, middleware := range sh.middlewares {
+		handler = middleware(handler, "GetRecipes")
+	}
+
+	response, err := handler(ctx, request)
+
+	if err != nil {
+		ctx.Error(err)
+		ctx.Status(http.StatusInternalServerError)
+	} else if validResponse, ok := response.(GetRecipesResponseObject); ok {
+		if err := validResponse.VisitGetRecipesResponse(ctx.Writer); err != nil {
+			ctx.Error(err)
+		}
+	} else if response != nil {
+		ctx.Error(fmt.Errorf("unexpected response type: %T", response))
+	}
 }
