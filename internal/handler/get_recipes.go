@@ -14,7 +14,7 @@ type RecipeHandler struct {
 }
 
 type RecipeService interface {
-	GetRecipes(params api.GetRecipesParams) ([]domain.Recipe, error)
+	GetRecipes() ([]domain.Recipe, error)
 }
 
 // NewRecipeHandler は新しいRecipeHandlerを生成する
@@ -26,7 +26,7 @@ func NewRecipeHandler(service RecipeService) *RecipeHandler {
 
 // GetRecipes レシピ一覧取得 (StrictServerInterface 用)
 func (h *RecipeHandler) GetRecipes(ctx context.Context, request api.GetRecipesRequestObject) (api.GetRecipesResponseObject, error) {
-	domainRecipes, err := h.service.GetRecipes(request.Params)
+	domainRecipes, err := h.service.GetRecipes()
 	if err != nil {
 		return nil, fmt.Errorf("failed to get recipes: %w", err)
 	}

@@ -1,7 +1,6 @@
 package service
 
 import (
-	api "github.com/furarico/vibe-cooking-recipe-api/generated"
 	"github.com/furarico/vibe-cooking-recipe-api/internal/domain"
 )
 
@@ -22,7 +21,7 @@ func NewRecipeService(repository RecipeRepository) *RecipeService {
 }
 
 // GetRecipes はレシピ一覧を取得する（ドメインモデルを返す）
-func (s *RecipeService) GetRecipes(params api.GetRecipesParams) ([]domain.Recipe, error) {
+func (s *RecipeService) GetRecipes() ([]domain.Recipe, error) {
 	domainRecipes, err := s.repository.FindAll()
 	if err != nil {
 		return nil, err
