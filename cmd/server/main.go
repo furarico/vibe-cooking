@@ -3,7 +3,11 @@ package main
 import (
 	"log"
 
+	api "github.com/furarico/vibe-cooking-recipe-api/generated"
 	"github.com/furarico/vibe-cooking-recipe-api/internal/database"
+	"github.com/furarico/vibe-cooking-recipe-api/internal/handler"
+	"github.com/furarico/vibe-cooking-recipe-api/internal/repository"
+	"github.com/furarico/vibe-cooking-recipe-api/internal/service"
 	"github.com/getkin/kin-openapi/openapi3"
 	"github.com/gin-gonic/gin"
 	"github.com/joho/godotenv"
@@ -40,7 +44,12 @@ func main() {
 
 	router.Use(middleware.OapiRequestValidator(spec))
 
-	// TODO: Implement handler
+	// ハンドラの登録
+	recipeRepository := repository.NewRecipeRepository(db)
+	recipeService := service.NewRecipeService(recipeRepository)
+	recipeHandler := handler.NewRecipeHandler(recipeService)
+	strictHandler := api.NewStrictHandler(recipeHandler, nil)
+	api.RegisterHandlers(router, strictHandler)
 
 	addr := ":8080"
 	log.Printf("Server starting on %s", addr)
