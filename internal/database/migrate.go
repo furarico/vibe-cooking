@@ -9,7 +9,6 @@ func AutoMigrate(db *gorm.DB) error {
 		&Ingredient{},
 		&Instruction{},
 		&VibeRecipe{},
-		&VibeRecipeRecipeLink{},
 		&VibeInstruction{},
 	)
 }

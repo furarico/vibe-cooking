@@ -12,8 +12,8 @@ type VibeRecipe struct {
 	CreatedAt time.Time `gorm:"autoCreateTime"`
 	UpdatedAt time.Time `gorm:"autoUpdateTime"`
 	// Relations
-	VibeRecipeRecipeLinks []VibeRecipeRecipeLink `gorm:"foreignKey:VibeRecipeID"`
-	VibeInstructions      []VibeInstruction      `gorm:"foreignKey:VibeRecipeID"`
+	Recipes          []Recipe          `gorm:"many2many:vibe_recipe_recipes;"`
+	VibeInstructions []VibeInstruction `gorm:"foreignKey:VibeRecipeID"`
 }
 
 // BeforeCreate はレコード作成前にIDを生成する
