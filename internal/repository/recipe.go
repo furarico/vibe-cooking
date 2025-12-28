@@ -33,38 +33,54 @@ func (r *RecipeRepository) FindAll() ([]domain.Recipe, error) {
 
 // convertToDomainRecipe は database.Recipe を domain.Recipe に変換する
 func convertToDomainRecipe(dbRecipe database.Recipe) domain.Recipe {
-	// Ingredients の変換
-	domainIngredients := make([]domain.Ingredient, 0, len(dbRecipe.Ingredients))
-	for _, dbIngredient := range dbRecipe.Ingredients {
-		domainIngredients = append(domainIngredients, domain.Ingredient{
-			ID:     dbIngredient.ID,
-			Name:   dbIngredient.Name,
-			Amount: dbIngredient.Amount,
-			Unit:   dbIngredient.Unit,
-			Notes:  dbIngredient.Notes,
-		})
-	}
-
-	// Instructions の変換
-	domainInstructions := make([]domain.Instruction, 0, len(dbRecipe.Instructions))
-	for _, dbInstruction := range dbRecipe.Instructions {
-		domainInstructions = append(domainInstructions, domain.Instruction{
-			ID:            dbInstruction.ID,
-			RecipeID:      dbInstruction.RecipeID,
-			Step:          dbInstruction.Step,
-			Title:         dbInstruction.Title,
-			Description:   dbInstruction.Description,
-			AudioURL:      dbInstruction.AudioURL,
-			TimerDuration: dbInstruction.TimerDuration,
-		})
-	}
-
 	return domain.Recipe{
 		ID:           dbRecipe.ID,
 		Title:        dbRecipe.Title,
 		Description:  dbRecipe.Description,
 		ImageURL:     dbRecipe.ImageURL,
-		Ingredients:  domainIngredients,
-		Instructions: domainInstructions,
+		Ingredients:  convertToDomainIngredients(dbRecipe.Ingredients),
+		Instructions: convertToDomainInstructions(dbRecipe.Instructions),
+	}
+}
+
+// convertToDomainIngredients は database.Ingredient のスライスを domain.Ingredient のスライスに変換する
+func convertToDomainIngredients(dbIngredients []database.Ingredient) []domain.Ingredient {
+	domainIngredients := make([]domain.Ingredient, 0, len(dbIngredients))
+	for _, dbIngredient := range dbIngredients {
+		domainIngredients = append(domainIngredients, convertToDomainIngredient(dbIngredient))
+	}
+	return domainIngredients
+}
+
+// convertToDomainIngredient は database.Ingredient を domain.Ingredient に変換する
+func convertToDomainIngredient(dbIngredient database.Ingredient) domain.Ingredient {
+	return domain.Ingredient{
+		ID:     dbIngredient.ID,
+		Name:   dbIngredient.Name,
+		Amount: dbIngredient.Amount,
+		Unit:   dbIngredient.Unit,
+		Notes:  dbIngredient.Notes,
+	}
+}
+
+// convertToDomainInstructions は database.Instruction のスライスを domain.Instruction のスライスに変換する
+func convertToDomainInstructions(dbInstructions []database.Instruction) []domain.Instruction {
+	domainInstructions := make([]domain.Instruction, 0, len(dbInstructions))
+	for _, dbInstruction := range dbInstructions {
+		domainInstructions = append(domainInstructions, convertToDomainInstruction(dbInstruction))
+	}
+	return domainInstructions
+}
+
+// convertToDomainInstruction は database.Instruction を domain.Instruction に変換する
+func convertToDomainInstruction(dbInstruction database.Instruction) domain.Instruction {
+	return domain.Instruction{
+		ID:            dbInstruction.ID,
+		RecipeID:      dbInstruction.RecipeID,
+		Step:          dbInstruction.Step,
+		Title:         dbInstruction.Title,
+		Description:   dbInstruction.Description,
+		AudioURL:      dbInstruction.AudioURL,
+		TimerDuration: dbInstruction.TimerDuration,
 	}
 }
