@@ -12,7 +12,7 @@ type VibeRecipe struct {
 	CreatedAt time.Time `gorm:"autoCreateTime"`
 	UpdatedAt time.Time `gorm:"autoUpdateTime"`
 	// Relations
-	Recipes          []Recipe          `gorm:"many2many:vibe_recipe_recipe_link;"`
+	Recipes          []Recipe          `gorm:"many2many:vibe_recipe_recipe_links;"`
 	VibeInstructions []VibeInstruction `gorm:"foreignKey:VibeRecipeID"`
 }
 
