@@ -27,7 +27,7 @@ type Recipe struct {
 	// Relations
 	Ingredients  []Ingredient  `gorm:"foreignKey:RecipeID"`
 	Instructions []Instruction `gorm:"foreignKey:RecipeID"`
-	VibeRecipes  []VibeRecipe  `gorm:"many2many:vibe_recipe_recipes;"`
+	VibeRecipes  []VibeRecipe  `gorm:"many2many:vibe_recipe_recipe_link;"`
 }
 
 // BeforeCreate はレコード作成前にIDを生成する
