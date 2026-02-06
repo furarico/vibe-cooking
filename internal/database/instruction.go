@@ -1,8 +1,10 @@
 package database
 
-import "gorm.io/gorm"
+import (
+	"github.com/furarico/vibe-cooking-recipe-api/internal/domain"
+	"gorm.io/gorm"
+)
 
-// Instruction は手順のモデル
 type Instruction struct {
 	ID            string   `gorm:"primaryKey;type:varchar(30)"`
 	Step          int      `gorm:"type:int;not null"`
@@ -18,7 +20,6 @@ type Instruction struct {
 	Recipe Recipe `gorm:"foreignKey:RecipeID"`
 }
 
-// BeforeCreate はレコード作成前にIDを生成する
 func (i *Instruction) BeforeCreate(tx *gorm.DB) error {
 	if i.ID == "" {
 		i.ID = generateID()
@@ -26,7 +27,26 @@ func (i *Instruction) BeforeCreate(tx *gorm.DB) error {
 	return nil
 }
 
-// TableName はテーブル名を指定する
 func (Instruction) TableName() string {
 	return "instructions"
+}
+
+func (i *Instruction) convertToDomainInstruction() domain.Instruction {
+	return domain.Instruction{
+		ID:            i.ID,
+		RecipeID:      i.RecipeID,
+		Step:          i.Step,
+		Title:         i.Title,
+		Description:   i.Description,
+		AudioURL:      i.AudioURL,
+		TimerDuration: i.TimerDuration,
+	}
+}
+
+func convertToDomainInstructions(dbInstructions []Instruction) []domain.Instruction {
+	domainInstructions := make([]domain.Instruction, 0, len(dbInstructions))
+	for _, dbInstruction := range dbInstructions {
+		domainInstructions = append(domainInstructions, dbInstruction.convertToDomainInstruction())
+	}
+	return domainInstructions
 }

@@ -3,16 +3,15 @@ package database
 import (
 	"time"
 
+	"github.com/furarico/vibe-cooking-recipe-api/internal/domain"
 	"github.com/nrednav/cuid2"
 	"gorm.io/gorm"
 )
 
-// generateID はユニークなIDを生成するヘルパー関数
 func generateID() string {
 	return cuid2.Generate()
 }
 
-// Recipe はレシピのモデル
 type Recipe struct {
 	ID          string    `gorm:"primaryKey;type:varchar(30)"`
 	Title       string    `gorm:"type:varchar(255);default:''"`
@@ -29,7 +28,6 @@ type Recipe struct {
 	Instructions []Instruction `gorm:"foreignKey:RecipeID"`
 }
 
-// BeforeCreate はレコード作成前にIDを生成する
 func (r *Recipe) BeforeCreate(tx *gorm.DB) error {
 	if r.ID == "" {
 		r.ID = generateID()
@@ -37,7 +35,17 @@ func (r *Recipe) BeforeCreate(tx *gorm.DB) error {
 	return nil
 }
 
-// TableName はテーブル名を指定する
 func (Recipe) TableName() string {
 	return "recipes"
+}
+
+func (r *Recipe) ConvertToDomainRecipe() domain.Recipe {
+	return domain.Recipe{
+		ID:           r.ID,
+		Title:        r.Title,
+		Description:  r.Description,
+		ImageURL:     r.ImageURL,
+		Ingredients:  convertToDomainIngredients(r.Ingredients),
+		Instructions: convertToDomainInstructions(r.Instructions),
+	}
 }
