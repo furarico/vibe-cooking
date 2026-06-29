@@ -1,0 +1,154 @@
+openapi: 3.1.0
+info:
+  title: Recipe Service
+  version: 1.0.0
+tags: []
+paths:
+  /recipes:
+    get:
+      operationId: getRecipes
+      summary: レシピ一覧取得
+      description: |-
+        レシピ一覧を取得
+
+        idsが指定されている場合は、指定されたレシピIDのレシピを返却
+
+        isVibeRecipeがtrueの場合は、バイブレシピを返却
+      parameters:
+        - name: ids
+          in: query
+          required: false
+          description: レシピIDの配列
+          schema:
+            type: array
+            items:
+              type: string
+          explode: false
+        - name: isVibeRecipe
+          in: query
+          required: false
+          description: バイブレシピかどうか
+          schema:
+            type: boolean
+            default: false
+          explode: false
+      responses:
+        '200':
+          description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  recipes:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Recipe'
+                required:
+                  - recipes
+components:
+  schemas:
+    Ingredient:
+      type: object
+      required:
+        - id
+        - name
+        - amount
+        - unit
+      properties:
+        id:
+          type: string
+          description: 材料ID
+        name:
+          type: string
+          description: 材料名
+        amount:
+          type: number
+          description: 分量
+        unit:
+          type: string
+          description: 単位
+        notes:
+          type: string
+          description: 備考
+    Instruction:
+      type: object
+      required:
+        - id
+        - recipeId
+        - step
+        - title
+        - description
+      properties:
+        id:
+          type: string
+          description: 手順ID
+        recipeId:
+          type: string
+          description: レシピID
+        step:
+          type: integer
+          description: 手順番号
+        title:
+          type: string
+          description: 手順のタイトル（例：パスタを茹でる、野菜を炒める）
+        description:
+          type: string
+          description: 手順の説明
+        audioUrl:
+          type: string
+          format: uri
+          description: 手順の音声URL
+        timerDuration:
+          type: number
+          format: double
+          description: |-
+            タイマーの所要時間 (秒)
+
+            タイマーセットが必要な手順のみ値を返却
+
+            タイマーセットが必要ない場合はnull
+    Recipe:
+      type: object
+      required:
+        - id
+        - title
+        - description
+        - ingredients
+        - instructions
+      properties:
+        id:
+          type: string
+        title:
+          type: string
+          description: レシピのタイトル
+        description:
+          type: string
+          description: レシピの説明
+        ingredients:
+          type: array
+          items:
+            $ref: '#/components/schemas/Ingredient'
+          description: 材料
+        instructions:
+          type: array
+          items:
+            $ref: '#/components/schemas/Instruction'
+          description: 手順
+        imageUrl:
+          type: string
+          format: uri
+          description: レシピの画像URL
+servers:
+  - url: http://localhost:8080
+    description: Local
+    variables: {}
+  - url: https://dev.recipe-api.vibe-cooking.app
+    description: Development
+    variables: {}
+  - url: https://stg.recipe-api.vibe-cooking.app
+    description: Staging
+    variables: {}
+  - url: https://recipe-api.vibe-cooking.app
+    description: Production
+    variables: {}
