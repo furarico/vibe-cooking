@@ -1,0 +1,13 @@
+default_platform(:ios)
+
+platform :ios do
+  before_all do
+    ENV["FASTLANE_XCODEBUILD_SETTINGS_TIMEOUT"] = "30"
+    ENV["FASTLANE_XCODEBUILD_SETTINGS_RETRIES"] = "2"
+  end
+
+  desc "Test"
+  lane :test do
+    scan
+  end
+end

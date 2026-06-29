@@ -1,0 +1,1259 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		F13A33822EB4ADC800B73D09 /* VibeCookingWatchApp.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = F13A33622EB4ADC600B73D09 /* VibeCookingWatchApp.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		F163B31F2E04300000E1FF6A /* OpenAPIRuntime in Frameworks */ = {isa = PBXBuildFile; productRef = F163B31E2E04300000E1FF6A /* OpenAPIRuntime */; };
+		F163B3212E04300000E1FF6A /* OpenAPIURLSession in Frameworks */ = {isa = PBXBuildFile; productRef = F163B3202E04300000E1FF6A /* OpenAPIURLSession */; };
+		F163B33F2E04339000E1FF6A /* FirebaseAppCheck in Frameworks */ = {isa = PBXBuildFile; productRef = F163B33E2E04339000E1FF6A /* FirebaseAppCheck */; };
+		F163B3412E04339000E1FF6A /* FirebaseCore in Frameworks */ = {isa = PBXBuildFile; productRef = F163B3402E04339000E1FF6A /* FirebaseCore */; };
+		F1B822122E80FE4D0018EB63 /* NukeUI in Frameworks */ = {isa = PBXBuildFile; productRef = F1B822112E80FE4D0018EB63 /* NukeUI */; };
+		F1B8221D2E8100460018EB63 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = F1B8221C2E8100460018EB63 /* Lottie */; };
+		F1C77A6C2E065DD900E23734 /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = F1C77A6B2E065DD900E23734 /* FirebaseCrashlytics */; };
+		F1EFF8232ED6C003008FEFE1 /* Dependencies in Frameworks */ = {isa = PBXBuildFile; productRef = F1EFF8222ED6C003008FEFE1 /* Dependencies */; };
+		F1EFF8252ED6C003008FEFE1 /* DependenciesMacros in Frameworks */ = {isa = PBXBuildFile; productRef = F1EFF8242ED6C003008FEFE1 /* DependenciesMacros */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		F13A336F2EB4ADC800B73D09 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F1742FAF2E04249800DA907C /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F13A33612EB4ADC600B73D09;
+			remoteInfo = "VibeCookingWatchApp Watch App";
+		};
+		F13A33792EB4ADC800B73D09 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F1742FAF2E04249800DA907C /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F13A33612EB4ADC600B73D09;
+			remoteInfo = "VibeCookingWatchApp Watch App";
+		};
+		F13A33802EB4ADC800B73D09 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F1742FAF2E04249800DA907C /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F13A33612EB4ADC600B73D09;
+			remoteInfo = "VibeCookingWatchApp Watch App";
+		};
+		F1742FC62E04249900DA907C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F1742FAF2E04249800DA907C /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F1742FB62E04249800DA907C;
+			remoteInfo = VibeCooking;
+		};
+		F1742FD02E04249900DA907C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F1742FAF2E04249800DA907C /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F1742FB62E04249800DA907C;
+			remoteInfo = VibeCooking;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		F13A33832EB4ADC800B73D09 /* Embed Watch Content */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "$(CONTENTS_FOLDER_PATH)/Watch";
+			dstSubfolderSpec = 16;
+			files = (
+				F13A33822EB4ADC800B73D09 /* VibeCookingWatchApp.app in Embed Watch Content */,
+			);
+			name = "Embed Watch Content";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		F13A33622EB4ADC600B73D09 /* VibeCookingWatchApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VibeCookingWatchApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		F13A336E2EB4ADC800B73D09 /* VibeCookingWatchAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = VibeCookingWatchAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		F13A33782EB4ADC800B73D09 /* VibeCookingWatchAppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = VibeCookingWatchAppUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		F1742FB72E04249800DA907C /* VibeCooking.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VibeCooking.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		F1742FC52E04249900DA907C /* VibeCookingTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = VibeCookingTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		F1742FCF2E04249900DA907C /* VibeCookingUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = VibeCookingUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		F1B4CDFB2E04267E00381D1B /* Exceptions for "VibeCooking" folder in "VibeCooking" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = F1742FB62E04249800DA907C /* VibeCooking */;
+		};
+		F1ECEF812EB4CC9A00549E50 /* Exceptions for "VibeCooking" folder in "VibeCookingWatchApp" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				AppIcon.icon,
+			);
+			target = F13A33612EB4ADC600B73D09 /* VibeCookingWatchApp */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		F13A33632EB4ADC600B73D09 /* VibeCookingWatchApp */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = VibeCookingWatchApp;
+			sourceTree = "<group>";
+		};
+		F13A33712EB4ADC800B73D09 /* VibeCookingWatchAppTests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = VibeCookingWatchAppTests;
+			sourceTree = "<group>";
+		};
+		F13A337B2EB4ADC800B73D09 /* VibeCookingWatchAppUITests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = VibeCookingWatchAppUITests;
+			sourceTree = "<group>";
+		};
+		F1742FB92E04249800DA907C /* VibeCooking */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				F1B4CDFB2E04267E00381D1B /* Exceptions for "VibeCooking" folder in "VibeCooking" target */,
+				F1ECEF812EB4CC9A00549E50 /* Exceptions for "VibeCooking" folder in "VibeCookingWatchApp" target */,
+			);
+			path = VibeCooking;
+			sourceTree = "<group>";
+		};
+		F1742FC82E04249900DA907C /* VibeCookingTests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = VibeCookingTests;
+			sourceTree = "<group>";
+		};
+		F1742FD22E04249900DA907C /* VibeCookingUITests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = VibeCookingUITests;
+			sourceTree = "<group>";
+		};
+/* End PBXFileSystemSynchronizedRootGroup section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		F13A335F2EB4ADC600B73D09 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F13A336B2EB4ADC800B73D09 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F13A33752EB4ADC800B73D09 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F1742FB42E04249800DA907C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F163B3212E04300000E1FF6A /* OpenAPIURLSession in Frameworks */,
+				F1B8221D2E8100460018EB63 /* Lottie in Frameworks */,
+				F163B33F2E04339000E1FF6A /* FirebaseAppCheck in Frameworks */,
+				F1EFF8232ED6C003008FEFE1 /* Dependencies in Frameworks */,
+				F1C77A6C2E065DD900E23734 /* FirebaseCrashlytics in Frameworks */,
+				F1EFF8252ED6C003008FEFE1 /* DependenciesMacros in Frameworks */,
+				F1B822122E80FE4D0018EB63 /* NukeUI in Frameworks */,
+				F163B3412E04339000E1FF6A /* FirebaseCore in Frameworks */,
+				F163B31F2E04300000E1FF6A /* OpenAPIRuntime in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F1742FC22E04249900DA907C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F1742FCC2E04249900DA907C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		F163B31D2E04300000E1FF6A /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		F1742FAE2E04249800DA907C = {
+			isa = PBXGroup;
+			children = (
+				F1742FB92E04249800DA907C /* VibeCooking */,
+				F1742FC82E04249900DA907C /* VibeCookingTests */,
+				F1742FD22E04249900DA907C /* VibeCookingUITests */,
+				F13A33632EB4ADC600B73D09 /* VibeCookingWatchApp */,
+				F13A33712EB4ADC800B73D09 /* VibeCookingWatchAppTests */,
+				F13A337B2EB4ADC800B73D09 /* VibeCookingWatchAppUITests */,
+				F163B31D2E04300000E1FF6A /* Frameworks */,
+				F1742FB82E04249800DA907C /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		F1742FB82E04249800DA907C /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				F1742FB72E04249800DA907C /* VibeCooking.app */,
+				F1742FC52E04249900DA907C /* VibeCookingTests.xctest */,
+				F1742FCF2E04249900DA907C /* VibeCookingUITests.xctest */,
+				F13A33622EB4ADC600B73D09 /* VibeCookingWatchApp.app */,
+				F13A336E2EB4ADC800B73D09 /* VibeCookingWatchAppTests.xctest */,
+				F13A33782EB4ADC800B73D09 /* VibeCookingWatchAppUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		F13A33612EB4ADC600B73D09 /* VibeCookingWatchApp */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F13A338A2EB4ADC800B73D09 /* Build configuration list for PBXNativeTarget "VibeCookingWatchApp" */;
+			buildPhases = (
+				F13A335E2EB4ADC600B73D09 /* Sources */,
+				F13A335F2EB4ADC600B73D09 /* Frameworks */,
+				F13A33602EB4ADC600B73D09 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				F13A33632EB4ADC600B73D09 /* VibeCookingWatchApp */,
+			);
+			name = VibeCookingWatchApp;
+			packageProductDependencies = (
+			);
+			productName = "VibeCookingWatchApp Watch App";
+			productReference = F13A33622EB4ADC600B73D09 /* VibeCookingWatchApp.app */;
+			productType = "com.apple.product-type.application";
+		};
+		F13A336D2EB4ADC800B73D09 /* VibeCookingWatchAppTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F13A338B2EB4ADC800B73D09 /* Build configuration list for PBXNativeTarget "VibeCookingWatchAppTests" */;
+			buildPhases = (
+				F13A336A2EB4ADC800B73D09 /* Sources */,
+				F13A336B2EB4ADC800B73D09 /* Frameworks */,
+				F13A336C2EB4ADC800B73D09 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				F13A33702EB4ADC800B73D09 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				F13A33712EB4ADC800B73D09 /* VibeCookingWatchAppTests */,
+			);
+			name = VibeCookingWatchAppTests;
+			packageProductDependencies = (
+			);
+			productName = "VibeCookingWatchApp Watch AppTests";
+			productReference = F13A336E2EB4ADC800B73D09 /* VibeCookingWatchAppTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		F13A33772EB4ADC800B73D09 /* VibeCookingWatchAppUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F13A338C2EB4ADC800B73D09 /* Build configuration list for PBXNativeTarget "VibeCookingWatchAppUITests" */;
+			buildPhases = (
+				F13A33742EB4ADC800B73D09 /* Sources */,
+				F13A33752EB4ADC800B73D09 /* Frameworks */,
+				F13A33762EB4ADC800B73D09 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				F13A337A2EB4ADC800B73D09 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				F13A337B2EB4ADC800B73D09 /* VibeCookingWatchAppUITests */,
+			);
+			name = VibeCookingWatchAppUITests;
+			packageProductDependencies = (
+			);
+			productName = "VibeCookingWatchApp Watch AppUITests";
+			productReference = F13A33782EB4ADC800B73D09 /* VibeCookingWatchAppUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+		F1742FB62E04249800DA907C /* VibeCooking */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F1742FD92E04249900DA907C /* Build configuration list for PBXNativeTarget "VibeCooking" */;
+			buildPhases = (
+				F1742FB32E04249800DA907C /* Sources */,
+				F1742FB42E04249800DA907C /* Frameworks */,
+				F1742FB52E04249800DA907C /* Resources */,
+				F13A33832EB4ADC800B73D09 /* Embed Watch Content */,
+				F1C77A682E065AA500E23734 /* Crashlytics */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				F163B31B2E042FC500E1FF6A /* PBXTargetDependency */,
+				F13A33812EB4ADC800B73D09 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				F1742FB92E04249800DA907C /* VibeCooking */,
+			);
+			name = VibeCooking;
+			packageProductDependencies = (
+				F163B31E2E04300000E1FF6A /* OpenAPIRuntime */,
+				F163B3202E04300000E1FF6A /* OpenAPIURLSession */,
+				F163B33E2E04339000E1FF6A /* FirebaseAppCheck */,
+				F163B3402E04339000E1FF6A /* FirebaseCore */,
+				F1C77A6B2E065DD900E23734 /* FirebaseCrashlytics */,
+				F1B822112E80FE4D0018EB63 /* NukeUI */,
+				F1B8221C2E8100460018EB63 /* Lottie */,
+				F1EFF8222ED6C003008FEFE1 /* Dependencies */,
+				F1EFF8242ED6C003008FEFE1 /* DependenciesMacros */,
+			);
+			productName = VibeCooking;
+			productReference = F1742FB72E04249800DA907C /* VibeCooking.app */;
+			productType = "com.apple.product-type.application";
+		};
+		F1742FC42E04249900DA907C /* VibeCookingTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F1742FDC2E04249900DA907C /* Build configuration list for PBXNativeTarget "VibeCookingTests" */;
+			buildPhases = (
+				F1742FC12E04249900DA907C /* Sources */,
+				F1742FC22E04249900DA907C /* Frameworks */,
+				F1742FC32E04249900DA907C /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				F1742FC72E04249900DA907C /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				F1742FC82E04249900DA907C /* VibeCookingTests */,
+			);
+			name = VibeCookingTests;
+			packageProductDependencies = (
+			);
+			productName = VibeCookingTests;
+			productReference = F1742FC52E04249900DA907C /* VibeCookingTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		F1742FCE2E04249900DA907C /* VibeCookingUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F1742FDF2E04249900DA907C /* Build configuration list for PBXNativeTarget "VibeCookingUITests" */;
+			buildPhases = (
+				F1742FCB2E04249900DA907C /* Sources */,
+				F1742FCC2E04249900DA907C /* Frameworks */,
+				F1742FCD2E04249900DA907C /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				F1742FD12E04249900DA907C /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				F1742FD22E04249900DA907C /* VibeCookingUITests */,
+			);
+			name = VibeCookingUITests;
+			packageProductDependencies = (
+			);
+			productName = VibeCookingUITests;
+			productReference = F1742FCF2E04249900DA907C /* VibeCookingUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		F1742FAF2E04249800DA907C /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 2600;
+				LastUpgradeCheck = 1640;
+				TargetAttributes = {
+					F13A33612EB4ADC600B73D09 = {
+						CreatedOnToolsVersion = 26.0.1;
+					};
+					F13A336D2EB4ADC800B73D09 = {
+						CreatedOnToolsVersion = 26.0.1;
+						TestTargetID = F13A33612EB4ADC600B73D09;
+					};
+					F13A33772EB4ADC800B73D09 = {
+						CreatedOnToolsVersion = 26.0.1;
+						TestTargetID = F13A33612EB4ADC600B73D09;
+					};
+					F1742FB62E04249800DA907C = {
+						CreatedOnToolsVersion = 16.4;
+					};
+					F1742FC42E04249900DA907C = {
+						CreatedOnToolsVersion = 16.4;
+						TestTargetID = F1742FB62E04249800DA907C;
+					};
+					F1742FCE2E04249900DA907C = {
+						CreatedOnToolsVersion = 16.4;
+						TestTargetID = F1742FB62E04249800DA907C;
+					};
+				};
+			};
+			buildConfigurationList = F1742FB22E04249800DA907C /* Build configuration list for PBXProject "VibeCooking" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+				ja,
+			);
+			mainGroup = F1742FAE2E04249800DA907C;
+			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				F163B3172E042F8100E1FF6A /* XCRemoteSwiftPackageReference "swift-openapi-generator" */,
+				F163B3182E042F9300E1FF6A /* XCRemoteSwiftPackageReference "swift-openapi-runtime" */,
+				F163B3192E042F9D00E1FF6A /* XCRemoteSwiftPackageReference "swift-openapi-urlsession" */,
+				F163B33D2E04339000E1FF6A /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				F1B822102E80FE4D0018EB63 /* XCRemoteSwiftPackageReference "Nuke" */,
+				F1B8221B2E8100460018EB63 /* XCRemoteSwiftPackageReference "lottie-ios" */,
+				F1EFF8212ED6C003008FEFE1 /* XCRemoteSwiftPackageReference "swift-dependencies" */,
+			);
+			preferredProjectObjectVersion = 77;
+			productRefGroup = F1742FB82E04249800DA907C /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				F1742FB62E04249800DA907C /* VibeCooking */,
+				F1742FC42E04249900DA907C /* VibeCookingTests */,
+				F1742FCE2E04249900DA907C /* VibeCookingUITests */,
+				F13A33612EB4ADC600B73D09 /* VibeCookingWatchApp */,
+				F13A336D2EB4ADC800B73D09 /* VibeCookingWatchAppTests */,
+				F13A33772EB4ADC800B73D09 /* VibeCookingWatchAppUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		F13A33602EB4ADC600B73D09 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F13A336C2EB4ADC800B73D09 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F13A33762EB4ADC800B73D09 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F1742FB52E04249800DA907C /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F1742FC32E04249900DA907C /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F1742FCD2E04249900DA907C /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		F1C77A682E065AA500E23734 /* Crashlytics */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}",
+				"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}/Contents/Resources/DWARF/${PRODUCT_NAME}",
+				"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}/Contents/Info.plist",
+				"$(TARGET_BUILD_DIR)/$(UNLOCALIZED_RESOURCES_FOLDER_PATH)/GoogleService-Info.plist",
+				"$(TARGET_BUILD_DIR)/$(EXECUTABLE_PATH)",
+				"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}/Contents/Resources/DWARF/${PRODUCT_NAME}.debug.dylib",
+			);
+			name = Crashlytics;
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${BUILD_DIR%/Build/*}/SourcePackages/checkouts/firebase-ios-sdk/Crashlytics/run\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		F13A335E2EB4ADC600B73D09 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F13A336A2EB4ADC800B73D09 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F13A33742EB4ADC800B73D09 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F1742FB32E04249800DA907C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F1742FC12E04249900DA907C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F1742FCB2E04249900DA907C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		F13A33702EB4ADC800B73D09 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = F13A33612EB4ADC600B73D09 /* VibeCookingWatchApp */;
+			targetProxy = F13A336F2EB4ADC800B73D09 /* PBXContainerItemProxy */;
+		};
+		F13A337A2EB4ADC800B73D09 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = F13A33612EB4ADC600B73D09 /* VibeCookingWatchApp */;
+			targetProxy = F13A33792EB4ADC800B73D09 /* PBXContainerItemProxy */;
+		};
+		F13A33812EB4ADC800B73D09 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = F13A33612EB4ADC600B73D09 /* VibeCookingWatchApp */;
+			targetProxy = F13A33802EB4ADC800B73D09 /* PBXContainerItemProxy */;
+		};
+		F163B31B2E042FC500E1FF6A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			productRef = F163B31A2E042FC500E1FF6A /* OpenAPIGenerator */;
+		};
+		F1742FC72E04249900DA907C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = F1742FB62E04249800DA907C /* VibeCooking */;
+			targetProxy = F1742FC62E04249900DA907C /* PBXContainerItemProxy */;
+		};
+		F1742FD12E04249900DA907C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = F1742FB62E04249800DA907C /* VibeCooking */;
+			targetProxy = F1742FD02E04249900DA907C /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		F13A33842EB4ADC800B73D09 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = 4YP7SQBLYV;
+				ENABLE_PREVIEWS = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = "Vibe Cooking";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = co.furari.VibeCooking;
+				INFOPLIST_KEY_WKRunsIndependentlyOfCompanionApp = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = co.furari.VibeCooking.watchkitapp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 26.0;
+			};
+			name = Debug;
+		};
+		F13A33852EB4ADC800B73D09 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 4YP7SQBLYV;
+				ENABLE_PREVIEWS = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = "Vibe Cooking";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = co.furari.VibeCooking;
+				INFOPLIST_KEY_WKRunsIndependentlyOfCompanionApp = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = co.furari.VibeCooking.watchkitapp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				VALIDATE_PRODUCT = YES;
+				WATCHOS_DEPLOYMENT_TARGET = 26.0;
+			};
+			name = Release;
+		};
+		F13A33862EB4ADC800B73D09 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = 4YP7SQBLYV;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "co.furari.VibeCookingWatchApp-Watch-AppTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/VibeCookingWatchApp.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/VibeCookingWatchApp";
+				WATCHOS_DEPLOYMENT_TARGET = 26.0;
+			};
+			name = Debug;
+		};
+		F13A33872EB4ADC800B73D09 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 4YP7SQBLYV;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "co.furari.VibeCookingWatchApp-Watch-AppTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/VibeCookingWatchApp.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/VibeCookingWatchApp";
+				VALIDATE_PRODUCT = YES;
+				WATCHOS_DEPLOYMENT_TARGET = 26.0;
+			};
+			name = Release;
+		};
+		F13A33882EB4ADC800B73D09 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = 4YP7SQBLYV;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "co.furari.VibeCookingWatchApp-Watch-AppUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				TEST_TARGET_NAME = "VibeCookingWatchApp Watch App";
+				WATCHOS_DEPLOYMENT_TARGET = 26.0;
+			};
+			name = Debug;
+		};
+		F13A33892EB4ADC800B73D09 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 4YP7SQBLYV;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "co.furari.VibeCookingWatchApp-Watch-AppUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				TEST_TARGET_NAME = "VibeCookingWatchApp Watch App";
+				VALIDATE_PRODUCT = YES;
+				WATCHOS_DEPLOYMENT_TARGET = 26.0;
+			};
+			name = Release;
+		};
+		F1742FD72E04249900DA907C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = 4YP7SQBLYV;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_STRICT_CONCURRENCY = complete;
+				SWIFT_VERSION = 6.0;
+			};
+			name = Debug;
+		};
+		F1742FD82E04249900DA907C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = 4YP7SQBLYV;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_STRICT_CONCURRENCY = complete;
+				SWIFT_VERSION = 6.0;
+			};
+			name = Release;
+		};
+		F1742FDA2E04249900DA907C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = VibeCooking/VibeCooking.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 4YP7SQBLYV;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = VibeCooking/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "Vibe Cooking";
+				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.lifestyle";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "You can control recipes via voice in the app.";
+				INFOPLIST_KEY_NSSpeechRecognitionUsageDescription = "You can control recipes via voice in the app.";
+				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphoneos*]" = UIStatusBarStyleDefault;
+				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
+				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
+				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 15.5;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = co.furari.VibeCooking;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				REGISTER_APP_GROUPS = YES;
+				SDKROOT = auto;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				XROS_DEPLOYMENT_TARGET = 2.5;
+			};
+			name = Debug;
+		};
+		F1742FDB2E04249900DA907C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = VibeCooking/VibeCooking.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 4YP7SQBLYV;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = VibeCooking/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "Vibe Cooking";
+				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.lifestyle";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "You can control recipes via voice in the app.";
+				INFOPLIST_KEY_NSSpeechRecognitionUsageDescription = "You can control recipes via voice in the app.";
+				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphoneos*]" = UIStatusBarStyleDefault;
+				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
+				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
+				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 15.5;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = co.furari.VibeCooking;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				REGISTER_APP_GROUPS = YES;
+				SDKROOT = auto;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				XROS_DEPLOYMENT_TARGET = 2.5;
+			};
+			name = Release;
+		};
+		F1742FDD2E04249900DA907C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 4YP7SQBLYV;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
+				MACOSX_DEPLOYMENT_TARGET = 15.5;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = co.furari.VibeCookingTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = auto;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/VibeCooking.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/VibeCooking";
+				XROS_DEPLOYMENT_TARGET = 2.5;
+			};
+			name = Debug;
+		};
+		F1742FDE2E04249900DA907C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 4YP7SQBLYV;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
+				MACOSX_DEPLOYMENT_TARGET = 15.5;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = co.furari.VibeCookingTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = auto;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/VibeCooking.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/VibeCooking";
+				XROS_DEPLOYMENT_TARGET = 2.5;
+			};
+			name = Release;
+		};
+		F1742FE02E04249900DA907C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 4YP7SQBLYV;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
+				MACOSX_DEPLOYMENT_TARGET = 15.5;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = co.furari.VibeCookingUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = auto;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = VibeCooking;
+				XROS_DEPLOYMENT_TARGET = 2.5;
+			};
+			name = Debug;
+		};
+		F1742FE12E04249900DA907C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 4YP7SQBLYV;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
+				MACOSX_DEPLOYMENT_TARGET = 15.5;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = co.furari.VibeCookingUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = auto;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = VibeCooking;
+				XROS_DEPLOYMENT_TARGET = 2.5;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		F13A338A2EB4ADC800B73D09 /* Build configuration list for PBXNativeTarget "VibeCookingWatchApp" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F13A33842EB4ADC800B73D09 /* Debug */,
+				F13A33852EB4ADC800B73D09 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F13A338B2EB4ADC800B73D09 /* Build configuration list for PBXNativeTarget "VibeCookingWatchAppTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F13A33862EB4ADC800B73D09 /* Debug */,
+				F13A33872EB4ADC800B73D09 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F13A338C2EB4ADC800B73D09 /* Build configuration list for PBXNativeTarget "VibeCookingWatchAppUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F13A33882EB4ADC800B73D09 /* Debug */,
+				F13A33892EB4ADC800B73D09 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F1742FB22E04249800DA907C /* Build configuration list for PBXProject "VibeCooking" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F1742FD72E04249900DA907C /* Debug */,
+				F1742FD82E04249900DA907C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F1742FD92E04249900DA907C /* Build configuration list for PBXNativeTarget "VibeCooking" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F1742FDA2E04249900DA907C /* Debug */,
+				F1742FDB2E04249900DA907C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F1742FDC2E04249900DA907C /* Build configuration list for PBXNativeTarget "VibeCookingTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F1742FDD2E04249900DA907C /* Debug */,
+				F1742FDE2E04249900DA907C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F1742FDF2E04249900DA907C /* Build configuration list for PBXNativeTarget "VibeCookingUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F1742FE02E04249900DA907C /* Debug */,
+				F1742FE12E04249900DA907C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		F163B3172E042F8100E1FF6A /* XCRemoteSwiftPackageReference "swift-openapi-generator" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/apple/swift-openapi-generator";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.9.0;
+			};
+		};
+		F163B3182E042F9300E1FF6A /* XCRemoteSwiftPackageReference "swift-openapi-runtime" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/apple/swift-openapi-runtime";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.8.2;
+			};
+		};
+		F163B3192E042F9D00E1FF6A /* XCRemoteSwiftPackageReference "swift-openapi-urlsession" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/apple/swift-openapi-urlsession";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.1.0;
+			};
+		};
+		F163B33D2E04339000E1FF6A /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 12.4.0;
+			};
+		};
+		F1B822102E80FE4D0018EB63 /* XCRemoteSwiftPackageReference "Nuke" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/kean/Nuke";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 12.8.0;
+			};
+		};
+		F1B8221B2E8100460018EB63 /* XCRemoteSwiftPackageReference "lottie-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/airbnb/lottie-ios";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.5.2;
+			};
+		};
+		F1EFF8212ED6C003008FEFE1 /* XCRemoteSwiftPackageReference "swift-dependencies" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/pointfreeco/swift-dependencies";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.10.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		F163B31A2E042FC500E1FF6A /* OpenAPIGenerator */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F163B3172E042F8100E1FF6A /* XCRemoteSwiftPackageReference "swift-openapi-generator" */;
+			productName = "plugin:OpenAPIGenerator";
+		};
+		F163B31E2E04300000E1FF6A /* OpenAPIRuntime */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F163B3182E042F9300E1FF6A /* XCRemoteSwiftPackageReference "swift-openapi-runtime" */;
+			productName = OpenAPIRuntime;
+		};
+		F163B3202E04300000E1FF6A /* OpenAPIURLSession */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F163B3192E042F9D00E1FF6A /* XCRemoteSwiftPackageReference "swift-openapi-urlsession" */;
+			productName = OpenAPIURLSession;
+		};
+		F163B33E2E04339000E1FF6A /* FirebaseAppCheck */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F163B33D2E04339000E1FF6A /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAppCheck;
+		};
+		F163B3402E04339000E1FF6A /* FirebaseCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F163B33D2E04339000E1FF6A /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseCore;
+		};
+		F1B822112E80FE4D0018EB63 /* NukeUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F1B822102E80FE4D0018EB63 /* XCRemoteSwiftPackageReference "Nuke" */;
+			productName = NukeUI;
+		};
+		F1B8221C2E8100460018EB63 /* Lottie */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F1B8221B2E8100460018EB63 /* XCRemoteSwiftPackageReference "lottie-ios" */;
+			productName = Lottie;
+		};
+		F1C77A6B2E065DD900E23734 /* FirebaseCrashlytics */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F163B33D2E04339000E1FF6A /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseCrashlytics;
+		};
+		F1EFF8222ED6C003008FEFE1 /* Dependencies */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F1EFF8212ED6C003008FEFE1 /* XCRemoteSwiftPackageReference "swift-dependencies" */;
+			productName = Dependencies;
+		};
+		F1EFF8242ED6C003008FEFE1 /* DependenciesMacros */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F1EFF8212ED6C003008FEFE1 /* XCRemoteSwiftPackageReference "swift-dependencies" */;
+			productName = DependenciesMacros;
+		};
+/* End XCSwiftPackageProductDependency section */
+	};
+	rootObject = F1742FAF2E04249800DA907C /* Project object */;
+}
