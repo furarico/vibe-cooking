@@ -1,0 +1,90 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Recipe {
+  id          String   @id @default(cuid())
+  title       String   @default("")
+  description String   @default("")
+  prepTime    Int      @default(0) // 準備時間（分）
+  cookTime    Int      @default(0) // 調理時間（分）
+  servings    Int      @default(0) // 人数分
+  imageUrl    String?
+  tags        String[] // PostgreSQLの配列型を使用
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // リレーション
+  category     Category      @relation(fields: [categoryId], references: [id])
+  categoryId   String        @default("cmc4l085q0000o8tu30674wr8")
+  ingredients  Ingredient[]
+  instructions Instruction[]
+
+  @@map("recipes")
+}
+
+model Ingredient {
+  id     String  @id @default(cuid())
+  name   String  @default("") // 材料名
+  amount Float   @default(0) // 分量
+  unit   String  @default("") // 単位
+  notes  String? @default("") // 備考
+
+  // リレーション
+  recipe   Recipe @relation(fields: [recipeId], references: [id], onDelete: Cascade)
+  recipeId String
+
+  @@map("ingredients")
+}
+
+model Instruction {
+  id            String  @id @default(cuid())
+  step          Int     @default(0) // 手順番号
+  title         String  @default("") // 手順のタイトル（例：パスタを茹でる、野菜を炒める）
+  description   String  @default("") // 手順の説明
+  imageUrl      String? // 手順の画像URL
+  audioUrl      String? // 手順の音声URL
+  estimatedTime Int? // この手順の推定時間（分）
+  timerDuration Float? // この手順の推定時間（秒）
+
+  // リレーション
+  recipe   Recipe @relation(fields: [recipeId], references: [id], onDelete: Cascade)
+  recipeId String
+
+  @@map("instructions")
+}
+
+model Category {
+  id      String   @id @default(cuid())
+  name    String   @default("") // カテゴリ名（例：ご飯、おかず、デザート、汁物）
+  recipes Recipe[] // 1つのカテゴリに複数のレシピが属する
+
+  @@map("categories")
+}
+
+model VibeRecipe {
+  id               String            @id @default(cuid())
+  recipeIds        String[] // バイブレシピに含まれるレシピIDの配列
+  vibeInstructions VibeInstruction[]
+
+  @@map("vibe_recipes")
+}
+
+model VibeInstruction {
+  id            String     @id @default(cuid())
+  instructionId String // 元のInstructionのID
+  step          Int // 並び替え後の手順番号
+  recipeId      String // 元のInstructionが属するレシピのID
+  vibeRecipe    VibeRecipe @relation(fields: [vibeRecipeId], references: [id], onDelete: Cascade)
+  vibeRecipeId  String
+
+  @@map("vibe_instructions")
+}

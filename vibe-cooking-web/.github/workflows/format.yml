@@ -1,0 +1,112 @@
+name: Format Code
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+    types: [opened, synchronize, reopened, ready_for_review]
+  schedule:
+    - cron: '0 15 * * *'
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  format:
+    runs-on: ubuntu-latest
+    if: github.event.pull_request.draft == false
+    permissions:
+      contents: write
+      pull-requests: write
+
+    strategy:
+      matrix:
+        node-version: [22.x]
+        pnpm-version: [10.x]
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.head_ref || github.ref_name }}
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v3
+        with:
+          version: ${{ matrix.pnpm-version }}
+
+      - name: Setup Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'pnpm'
+
+      - name: Install dependencies
+        run: pnpm install --no-frozen-lockfile
+
+      - name: Generate API client
+        run: pnpm api:generate
+
+      - name: Generate Prisma client
+        run: pnpm db:generate
+
+      - name: Run format
+        run: pnpm format
+
+      - name: Check for changes
+        id: verify-changed-files
+        run: |
+          if [ -n "$(git status --porcelain)" ]; then
+            echo "changed=true" >> $GITHUB_OUTPUT
+          else
+            echo "changed=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Create Pull Request
+        if: steps.verify-changed-files.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          CURRENT_BRANCH: ${{ github.head_ref || github.ref_name }}
+          NEW_BRANCH: auto-format/format-${{ github.run_number }}-${{ github.sha }}
+        run: |
+          # Git設定
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+
+          git checkout "$CURRENT_BRANCH"
+
+          # 新しいブランチを作成してチェックアウト
+          git checkout -b "$NEW_BRANCH"
+
+          # 変更をコミット
+          git add -A
+          git commit -m "🤖 自動フォーマット適用"
+
+          # ブランチをプッシュ
+          git push origin "$NEW_BRANCH"
+
+          # PRを作成
+          gh pr create \
+            --title "🤖 自動フォーマット適用" \
+            --body "## 概要
+          自動フォーマットを適用しました。
+
+          ## 変更内容
+          - コードフォーマットの自動適用
+          - スタイルの統一
+
+          ## 確認事項
+          - [ ] フォーマット結果を確認
+          - [ ] 意図しない変更がないことを確認
+
+          ---
+          *このPRは自動生成されました*" \
+            --base "$CURRENT_BRANCH" \
+            --head "$NEW_BRANCH"
+
+          # フォーマットが必要だったことを示すため異常終了
+          echo "フォーマットPRが作成されました。コードの確認とマージを行ってください。"
+          exit 1
