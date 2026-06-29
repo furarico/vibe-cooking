@@ -1,0 +1,5 @@
+apis:
+  recipe-api:
+    root: ./tsp-output/schema/openapi.RecipeService.yaml
+  vibe-cooking-api:
+    root: ./tsp-output/schema/openapi.VibeCookingService.yaml
